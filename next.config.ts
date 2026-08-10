@@ -1,0 +1,64 @@
+import type { NextConfig } from "next";
+
+const securityHeaders = [
+  { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
+  { key: "Cross-Origin-Embedder-Policy", value: "require-corp" },
+  { key: "Cross-Origin-Resource-Policy", value: "same-origin" },
+  { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+  { key: "X-Content-Type-Options", value: "nosniff" },
+  { key: "X-Frame-Options", value: "DENY" },
+  { key: "Permissions-Policy", value: "camera=(), microphone=(self), geolocation=()" },
+  {
+    key: "Content-Security-Policy",
+    value: [
+      "default-src 'self'",
+      "script-src 'self' 'wasm-unsafe-eval'",
+      "style-src 'self' 'unsafe-inline'",
+      "img-src 'self' data: blob:",
+      "media-src 'self' blob:",
+      "worker-src 'self' blob:",
+      "connect-src 'self'",
+      "font-src 'self'",
+      "object-src 'none'",
+      "base-uri 'self'",
+      "form-action 'self'",
+      "frame-ancestors 'none'",
+      "upgrade-insecure-requests"
+    ].join("; ")
+  }
+];
+
+const nextConfig: NextConfig = {
+  poweredByHeader: false,
+  turbopack: {
+    root: process.cwd()
+  },
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: securityHeaders
+      },
+      {
+        source: "/scenes/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable"
+          }
+        ]
+      },
+      {
+        source: "/data/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=300, stale-while-revalidate=86400"
+          }
+        ]
+      }
+    ];
+  }
+};
+
+export default nextConfig;

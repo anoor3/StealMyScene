@@ -1,0 +1,1583 @@
+{
+  "version": 1,
+  "generatedAt": "2026-08-10T00:00:00.000Z",
+  "scenes": [
+    {
+      "id": "scene_001",
+      "slug": "wrong-door",
+      "title": "Wrong Door",
+      "quote": "I think this is definitely not the dentist.",
+      "sourceTitle": "StealMyScene Originals — Volume One",
+      "sourceType": "original",
+      "category": "Awkward",
+      "videoUrl": "/scenes/v1/wrong-door.v1.mp4",
+      "thumbnailUrl": "/scenes/v1/wrong-door.v1.jpg",
+      "duration": 5.6,
+      "transcript": "I think this is definitely not the dentist.",
+      "wordTimings": [
+        {
+          "word": "I",
+          "start": 0.35,
+          "end": 0.573
+        },
+        {
+          "word": "think",
+          "start": 0.622,
+          "end": 1.213
+        },
+        {
+          "word": "this",
+          "start": 1.303,
+          "end": 1.757
+        },
+        {
+          "word": "is",
+          "start": 1.847,
+          "end": 2.07
+        },
+        {
+          "word": "definitely",
+          "start": 2.119,
+          "end": 3.391
+        },
+        {
+          "word": "not",
+          "start": 3.481,
+          "end": 3.815
+        },
+        {
+          "word": "the",
+          "start": 3.889,
+          "end": 4.224
+        },
+        {
+          "word": "dentist.",
+          "start": 4.297,
+          "end": 5.25
+        }
+      ],
+      "dubCount": 0,
+      "viewCount": 0,
+      "rightsStatus": "cleared",
+      "rightsOwner": "StealMyScene",
+      "rightsBasis": "Original synthetic visual and authored prompt",
+      "published": true,
+      "createdAt": "2026-08-10T00:00:00.000Z",
+      "updatedAt": "2026-08-10T00:00:00.000Z"
+    },
+    {
+      "id": "scene_002",
+      "slug": "last-cookie",
+      "title": "The Last Cookie",
+      "quote": "Put the cookie down and nobody gets judged.",
+      "sourceTitle": "StealMyScene Originals — Volume One",
+      "sourceType": "original",
+      "category": "Comedy",
+      "videoUrl": "/scenes/v1/last-cookie.v1.mp4",
+      "thumbnailUrl": "/scenes/v1/last-cookie.v1.jpg",
+      "duration": 5.6,
+      "transcript": "Put the cookie down and nobody gets judged.",
+      "wordTimings": [
+        {
+          "word": "Put",
+          "start": 0.35,
+          "end": 0.694
+        },
+        {
+          "word": "the",
+          "start": 0.77,
+          "end": 1.114
+        },
+        {
+          "word": "cookie",
+          "start": 1.19,
+          "end": 1.94
+        },
+        {
+          "word": "down",
+          "start": 2.03,
+          "end": 2.5
+        },
+        {
+          "word": "and",
+          "start": 2.59,
+          "end": 2.934
+        },
+        {
+          "word": "nobody",
+          "start": 3.01,
+          "end": 3.76
+        },
+        {
+          "word": "gets",
+          "start": 3.85,
+          "end": 4.32
+        },
+        {
+          "word": "judged.",
+          "start": 4.41,
+          "end": 5.25
+        }
+      ],
+      "dubCount": 0,
+      "viewCount": 0,
+      "rightsStatus": "cleared",
+      "rightsOwner": "StealMyScene",
+      "rightsBasis": "Original synthetic visual and authored prompt",
+      "published": true,
+      "createdAt": "2026-08-10T00:00:00.000Z",
+      "updatedAt": "2026-08-10T00:00:00.000Z"
+    },
+    {
+      "id": "scene_003",
+      "slug": "tiny-emergency",
+      "title": "Tiny Emergency",
+      "quote": "Remain calm, the Wi-Fi password is on the fridge.",
+      "sourceTitle": "StealMyScene Originals — Volume One",
+      "sourceType": "original",
+      "category": "Chaos",
+      "videoUrl": "/scenes/v1/tiny-emergency.v1.mp4",
+      "thumbnailUrl": "/scenes/v1/tiny-emergency.v1.jpg",
+      "duration": 5.9,
+      "transcript": "Remain calm, the Wi-Fi password is on the fridge.",
+      "wordTimings": [
+        {
+          "word": "Remain",
+          "start": 0.35,
+          "end": 1.081
+        },
+        {
+          "word": "calm,",
+          "start": 1.171,
+          "end": 1.628
+        },
+        {
+          "word": "the",
+          "start": 1.718,
+          "end": 2.055
+        },
+        {
+          "word": "Wi-Fi",
+          "start": 2.129,
+          "end": 2.586
+        },
+        {
+          "word": "password",
+          "start": 2.676,
+          "end": 3.681
+        },
+        {
+          "word": "is",
+          "start": 3.771,
+          "end": 3.995
+        },
+        {
+          "word": "on",
+          "start": 4.045,
+          "end": 4.269
+        },
+        {
+          "word": "the",
+          "start": 4.318,
+          "end": 4.655
+        },
+        {
+          "word": "fridge.",
+          "start": 4.729,
+          "end": 5.55
+        }
+      ],
+      "dubCount": 0,
+      "viewCount": 0,
+      "rightsStatus": "cleared",
+      "rightsOwner": "StealMyScene",
+      "rightsBasis": "Original synthetic visual and authored prompt",
+      "published": true,
+      "createdAt": "2026-08-10T00:00:00.000Z",
+      "updatedAt": "2026-08-10T00:00:00.000Z"
+    },
+    {
+      "id": "scene_004",
+      "slug": "meeting-escape",
+      "title": "Meeting Escape",
+      "quote": "My camera froze, but spiritually I have left.",
+      "sourceTitle": "StealMyScene Originals — Volume One",
+      "sourceType": "original",
+      "category": "Work",
+      "videoUrl": "/scenes/v1/meeting-escape.v1.mp4",
+      "thumbnailUrl": "/scenes/v1/meeting-escape.v1.jpg",
+      "duration": 5.6,
+      "transcript": "My camera froze, but spiritually I have left.",
+      "wordTimings": [
+        {
+          "word": "My",
+          "start": 0.35,
+          "end": 0.567
+        },
+        {
+          "word": "camera",
+          "start": 0.615,
+          "end": 1.319
+        },
+        {
+          "word": "froze,",
+          "start": 1.409,
+          "end": 1.982
+        },
+        {
+          "word": "but",
+          "start": 2.072,
+          "end": 2.397
+        },
+        {
+          "word": "spiritually",
+          "start": 2.469,
+          "end": 3.836
+        },
+        {
+          "word": "I",
+          "start": 3.926,
+          "end": 4.143
+        },
+        {
+          "word": "have",
+          "start": 4.191,
+          "end": 4.63
+        },
+        {
+          "word": "left.",
+          "start": 4.72,
+          "end": 5.25
+        }
+      ],
+      "dubCount": 0,
+      "viewCount": 0,
+      "rightsStatus": "cleared",
+      "rightsOwner": "StealMyScene",
+      "rightsBasis": "Original synthetic visual and authored prompt",
+      "published": true,
+      "createdAt": "2026-08-10T00:00:00.000Z",
+      "updatedAt": "2026-08-10T00:00:00.000Z"
+    },
+    {
+      "id": "scene_005",
+      "slug": "plant-witness",
+      "title": "The Plant Knows",
+      "quote": "Do not look at the plant, it saw everything.",
+      "sourceTitle": "StealMyScene Originals — Volume One",
+      "sourceType": "original",
+      "category": "Mystery",
+      "videoUrl": "/scenes/v1/plant-witness.v1.mp4",
+      "thumbnailUrl": "/scenes/v1/plant-witness.v1.jpg",
+      "duration": 5.9,
+      "transcript": "Do not look at the plant, it saw everything.",
+      "wordTimings": [
+        {
+          "word": "Do",
+          "start": 0.35,
+          "end": 0.601
+        },
+        {
+          "word": "not",
+          "start": 0.656,
+          "end": 1.032
+        },
+        {
+          "word": "look",
+          "start": 1.115,
+          "end": 1.636
+        },
+        {
+          "word": "at",
+          "start": 1.726,
+          "end": 1.977
+        },
+        {
+          "word": "the",
+          "start": 2.032,
+          "end": 2.409
+        },
+        {
+          "word": "plant,",
+          "start": 2.491,
+          "end": 3.166
+        },
+        {
+          "word": "it",
+          "start": 3.256,
+          "end": 3.507
+        },
+        {
+          "word": "saw",
+          "start": 3.562,
+          "end": 3.938
+        },
+        {
+          "word": "everything.",
+          "start": 4.021,
+          "end": 5.55
+        }
+      ],
+      "dubCount": 0,
+      "viewCount": 0,
+      "rightsStatus": "cleared",
+      "rightsOwner": "StealMyScene",
+      "rightsBasis": "Original synthetic visual and authored prompt",
+      "published": true,
+      "createdAt": "2026-08-10T00:00:00.000Z",
+      "updatedAt": "2026-08-10T00:00:00.000Z"
+    },
+    {
+      "id": "scene_006",
+      "slug": "group-chat",
+      "title": "Group Chat Evidence",
+      "quote": "For legal reasons, that message was a joke.",
+      "sourceTitle": "StealMyScene Originals — Volume One",
+      "sourceType": "original",
+      "category": "Chaos",
+      "videoUrl": "/scenes/v1/group-chat.v1.mp4",
+      "thumbnailUrl": "/scenes/v1/group-chat.v1.jpg",
+      "duration": 5.6,
+      "transcript": "For legal reasons, that message was a joke.",
+      "wordTimings": [
+        {
+          "word": "For",
+          "start": 0.35,
+          "end": 0.694
+        },
+        {
+          "word": "legal",
+          "start": 0.77,
+          "end": 1.38
+        },
+        {
+          "word": "reasons,",
+          "start": 1.47,
+          "end": 2.36
+        },
+        {
+          "word": "that",
+          "start": 2.45,
+          "end": 2.92
+        },
+        {
+          "word": "message",
+          "start": 3.01,
+          "end": 3.9
+        },
+        {
+          "word": "was",
+          "start": 3.99,
+          "end": 4.334
+        },
+        {
+          "word": "a",
+          "start": 4.41,
+          "end": 4.64
+        },
+        {
+          "word": "joke.",
+          "start": 4.69,
+          "end": 5.25
+        }
+      ],
+      "dubCount": 0,
+      "viewCount": 0,
+      "rightsStatus": "cleared",
+      "rightsOwner": "StealMyScene",
+      "rightsBasis": "Original synthetic visual and authored prompt",
+      "published": true,
+      "createdAt": "2026-08-10T00:00:00.000Z",
+      "updatedAt": "2026-08-10T00:00:00.000Z"
+    },
+    {
+      "id": "scene_007",
+      "slug": "monday-hero",
+      "title": "Monday Hero",
+      "quote": "I survived Monday and all I got was Tuesday.",
+      "sourceTitle": "StealMyScene Originals — Volume One",
+      "sourceType": "original",
+      "category": "Work",
+      "videoUrl": "/scenes/v1/monday-hero.v1.mp4",
+      "thumbnailUrl": "/scenes/v1/monday-hero.v1.jpg",
+      "duration": 5.9,
+      "transcript": "I survived Monday and all I got was Tuesday.",
+      "wordTimings": [
+        {
+          "word": "I",
+          "start": 0.35,
+          "end": 0.58
+        },
+        {
+          "word": "survived",
+          "start": 0.631,
+          "end": 1.665
+        },
+        {
+          "word": "Monday",
+          "start": 1.755,
+          "end": 2.509
+        },
+        {
+          "word": "and",
+          "start": 2.599,
+          "end": 2.944
+        },
+        {
+          "word": "all",
+          "start": 3.02,
+          "end": 3.366
+        },
+        {
+          "word": "I",
+          "start": 3.442,
+          "end": 3.672
+        },
+        {
+          "word": "got",
+          "start": 3.723,
+          "end": 4.069
+        },
+        {
+          "word": "was",
+          "start": 4.145,
+          "end": 4.49
+        },
+        {
+          "word": "Tuesday.",
+          "start": 4.566,
+          "end": 5.55
+        }
+      ],
+      "dubCount": 0,
+      "viewCount": 0,
+      "rightsStatus": "cleared",
+      "rightsOwner": "StealMyScene",
+      "rightsBasis": "Original synthetic visual and authored prompt",
+      "published": true,
+      "createdAt": "2026-08-10T00:00:00.000Z",
+      "updatedAt": "2026-08-10T00:00:00.000Z"
+    },
+    {
+      "id": "scene_008",
+      "slug": "fridge-light",
+      "title": "Fridge Interrogation",
+      "quote": "We meet again, mysterious light behind the leftovers.",
+      "sourceTitle": "StealMyScene Originals — Volume One",
+      "sourceType": "original",
+      "category": "Mystery",
+      "videoUrl": "/scenes/v1/fridge-light.v1.mp4",
+      "thumbnailUrl": "/scenes/v1/fridge-light.v1.jpg",
+      "duration": 5.6,
+      "transcript": "We meet again, mysterious light behind the leftovers.",
+      "wordTimings": [
+        {
+          "word": "We",
+          "start": 0.35,
+          "end": 0.533
+        },
+        {
+          "word": "meet",
+          "start": 0.573,
+          "end": 0.938
+        },
+        {
+          "word": "again,",
+          "start": 1.018,
+          "end": 1.485
+        },
+        {
+          "word": "mysterious",
+          "start": 1.575,
+          "end": 2.599
+        },
+        {
+          "word": "light",
+          "start": 2.689,
+          "end": 3.155
+        },
+        {
+          "word": "behind",
+          "start": 3.245,
+          "end": 3.824
+        },
+        {
+          "word": "the",
+          "start": 3.914,
+          "end": 4.188
+        },
+        {
+          "word": "leftovers.",
+          "start": 4.248,
+          "end": 5.25
+        }
+      ],
+      "dubCount": 0,
+      "viewCount": 0,
+      "rightsStatus": "cleared",
+      "rightsOwner": "StealMyScene",
+      "rightsBasis": "Original synthetic visual and authored prompt",
+      "published": true,
+      "createdAt": "2026-08-10T00:00:00.000Z",
+      "updatedAt": "2026-08-10T00:00:00.000Z"
+    },
+    {
+      "id": "scene_009",
+      "slug": "dramatic-email",
+      "title": "The Dramatic Email",
+      "quote": "Per my last email, I am becoming a lighthouse keeper.",
+      "sourceTitle": "StealMyScene Originals — Volume One",
+      "sourceType": "original",
+      "category": "Work",
+      "videoUrl": "/scenes/v1/dramatic-email.v1.mp4",
+      "thumbnailUrl": "/scenes/v1/dramatic-email.v1.jpg",
+      "duration": 6.2,
+      "transcript": "Per my last email, I am becoming a lighthouse keeper.",
+      "wordTimings": [
+        {
+          "word": "Per",
+          "start": 0.35,
+          "end": 0.657
+        },
+        {
+          "word": "my",
+          "start": 0.725,
+          "end": 0.93
+        },
+        {
+          "word": "last",
+          "start": 0.975,
+          "end": 1.385
+        },
+        {
+          "word": "email,",
+          "start": 1.475,
+          "end": 2.01
+        },
+        {
+          "word": "I",
+          "start": 2.1,
+          "end": 2.305
+        },
+        {
+          "word": "am",
+          "start": 2.35,
+          "end": 2.555
+        },
+        {
+          "word": "becoming",
+          "start": 2.6,
+          "end": 3.51
+        },
+        {
+          "word": "a",
+          "start": 3.6,
+          "end": 3.805
+        },
+        {
+          "word": "lighthouse",
+          "start": 3.85,
+          "end": 5.01
+        },
+        {
+          "word": "keeper.",
+          "start": 5.1,
+          "end": 5.85
+        }
+      ],
+      "dubCount": 0,
+      "viewCount": 0,
+      "rightsStatus": "cleared",
+      "rightsOwner": "StealMyScene",
+      "rightsBasis": "Original synthetic visual and authored prompt",
+      "published": true,
+      "createdAt": "2026-08-10T00:00:00.000Z",
+      "updatedAt": "2026-08-10T00:00:00.000Z"
+    },
+    {
+      "id": "scene_010",
+      "slug": "snack-alibi",
+      "title": "Snack Alibi",
+      "quote": "The chips were already open when I arrived.",
+      "sourceTitle": "StealMyScene Originals — Volume One",
+      "sourceType": "original",
+      "category": "Comedy",
+      "videoUrl": "/scenes/v1/snack-alibi.v1.mp4",
+      "thumbnailUrl": "/scenes/v1/snack-alibi.v1.jpg",
+      "duration": 5.6,
+      "transcript": "The chips were already open when I arrived.",
+      "wordTimings": [
+        {
+          "word": "The",
+          "start": 0.35,
+          "end": 0.685
+        },
+        {
+          "word": "chips",
+          "start": 0.758,
+          "end": 1.349
+        },
+        {
+          "word": "were",
+          "start": 1.439,
+          "end": 1.893
+        },
+        {
+          "word": "already",
+          "start": 1.983,
+          "end": 2.846
+        },
+        {
+          "word": "open",
+          "start": 2.936,
+          "end": 3.391
+        },
+        {
+          "word": "when",
+          "start": 3.481,
+          "end": 3.935
+        },
+        {
+          "word": "I",
+          "start": 4.025,
+          "end": 4.248
+        },
+        {
+          "word": "arrived.",
+          "start": 4.297,
+          "end": 5.25
+        }
+      ],
+      "dubCount": 0,
+      "viewCount": 0,
+      "rightsStatus": "cleared",
+      "rightsOwner": "StealMyScene",
+      "rightsBasis": "Original synthetic visual and authored prompt",
+      "published": true,
+      "createdAt": "2026-08-10T00:00:00.000Z",
+      "updatedAt": "2026-08-10T00:00:00.000Z"
+    },
+    {
+      "id": "scene_011",
+      "slug": "elevator-speech",
+      "title": "Elevator Speech",
+      "quote": "If this stops again, I am taking the stairs forever.",
+      "sourceTitle": "StealMyScene Originals — Volume One",
+      "sourceType": "original",
+      "category": "Awkward",
+      "videoUrl": "/scenes/v1/elevator-speech.v1.mp4",
+      "thumbnailUrl": "/scenes/v1/elevator-speech.v1.jpg",
+      "duration": 6.2,
+      "transcript": "If this stops again, I am taking the stairs forever.",
+      "wordTimings": [
+        {
+          "word": "If",
+          "start": 0.35,
+          "end": 0.565
+        },
+        {
+          "word": "this",
+          "start": 0.612,
+          "end": 1.046
+        },
+        {
+          "word": "stops",
+          "start": 1.136,
+          "end": 1.7
+        },
+        {
+          "word": "again,",
+          "start": 1.79,
+          "end": 2.355
+        },
+        {
+          "word": "I",
+          "start": 2.445,
+          "end": 2.66
+        },
+        {
+          "word": "am",
+          "start": 2.707,
+          "end": 2.922
+        },
+        {
+          "word": "taking",
+          "start": 2.969,
+          "end": 3.665
+        },
+        {
+          "word": "the",
+          "start": 3.755,
+          "end": 4.077
+        },
+        {
+          "word": "stairs",
+          "start": 4.148,
+          "end": 4.843
+        },
+        {
+          "word": "forever.",
+          "start": 4.933,
+          "end": 5.85
+        }
+      ],
+      "dubCount": 0,
+      "viewCount": 0,
+      "rightsStatus": "cleared",
+      "rightsOwner": "StealMyScene",
+      "rightsBasis": "Original synthetic visual and authored prompt",
+      "published": true,
+      "createdAt": "2026-08-10T00:00:00.000Z",
+      "updatedAt": "2026-08-10T00:00:00.000Z"
+    },
+    {
+      "id": "scene_012",
+      "slug": "alarm-bargain",
+      "title": "Alarm Bargain",
+      "quote": "Five more minutes, and I promise to become productive.",
+      "sourceTitle": "StealMyScene Originals — Volume One",
+      "sourceType": "original",
+      "category": "Everyday",
+      "videoUrl": "/scenes/v1/alarm-bargain.v1.mp4",
+      "thumbnailUrl": "/scenes/v1/alarm-bargain.v1.jpg",
+      "duration": 5.9,
+      "transcript": "Five more minutes, and I promise to become productive.",
+      "wordTimings": [
+        {
+          "word": "Five",
+          "start": 0.35,
+          "end": 0.729
+        },
+        {
+          "word": "more",
+          "start": 0.812,
+          "end": 1.191
+        },
+        {
+          "word": "minutes,",
+          "start": 1.274,
+          "end": 1.993
+        },
+        {
+          "word": "and",
+          "start": 2.083,
+          "end": 2.368
+        },
+        {
+          "word": "I",
+          "start": 2.43,
+          "end": 2.62
+        },
+        {
+          "word": "promise",
+          "start": 2.661,
+          "end": 3.38
+        },
+        {
+          "word": "to",
+          "start": 3.47,
+          "end": 3.66
+        },
+        {
+          "word": "become",
+          "start": 3.701,
+          "end": 4.304
+        },
+        {
+          "word": "productive.",
+          "start": 4.394,
+          "end": 5.55
+        }
+      ],
+      "dubCount": 0,
+      "viewCount": 0,
+      "rightsStatus": "cleared",
+      "rightsOwner": "StealMyScene",
+      "rightsBasis": "Original synthetic visual and authored prompt",
+      "published": true,
+      "createdAt": "2026-08-10T00:00:00.000Z",
+      "updatedAt": "2026-08-10T00:00:00.000Z"
+    },
+    {
+      "id": "scene_013",
+      "slug": "cat-manager",
+      "title": "New Management",
+      "quote": "The cat has reviewed your work and looks concerned.",
+      "sourceTitle": "StealMyScene Originals — Volume One",
+      "sourceType": "original",
+      "category": "Comedy",
+      "videoUrl": "/scenes/v1/cat-manager.v1.mp4",
+      "thumbnailUrl": "/scenes/v1/cat-manager.v1.jpg",
+      "duration": 5.9,
+      "transcript": "The cat has reviewed your work and looks concerned.",
+      "wordTimings": [
+        {
+          "word": "The",
+          "start": 0.35,
+          "end": 0.655
+        },
+        {
+          "word": "cat",
+          "start": 0.721,
+          "end": 1.026
+        },
+        {
+          "word": "has",
+          "start": 1.093,
+          "end": 1.397
+        },
+        {
+          "word": "reviewed",
+          "start": 1.464,
+          "end": 2.365
+        },
+        {
+          "word": "your",
+          "start": 2.455,
+          "end": 2.861
+        },
+        {
+          "word": "work",
+          "start": 2.95,
+          "end": 3.356
+        },
+        {
+          "word": "and",
+          "start": 3.445,
+          "end": 3.75
+        },
+        {
+          "word": "looks",
+          "start": 3.817,
+          "end": 4.346
+        },
+        {
+          "word": "concerned.",
+          "start": 4.436,
+          "end": 5.55
+        }
+      ],
+      "dubCount": 0,
+      "viewCount": 0,
+      "rightsStatus": "cleared",
+      "rightsOwner": "StealMyScene",
+      "rightsBasis": "Original synthetic visual and authored prompt",
+      "published": true,
+      "createdAt": "2026-08-10T00:00:00.000Z",
+      "updatedAt": "2026-08-10T00:00:00.000Z"
+    },
+    {
+      "id": "scene_014",
+      "slug": "parallel-parking",
+      "title": "Parking Finale",
+      "quote": "Everyone stay quiet, the curb can sense fear.",
+      "sourceTitle": "StealMyScene Originals — Volume One",
+      "sourceType": "original",
+      "category": "Chaos",
+      "videoUrl": "/scenes/v1/parallel-parking.v1.mp4",
+      "thumbnailUrl": "/scenes/v1/parallel-parking.v1.jpg",
+      "duration": 5.6,
+      "transcript": "Everyone stay quiet, the curb can sense fear.",
+      "wordTimings": [
+        {
+          "word": "Everyone",
+          "start": 0.35,
+          "end": 1.349
+        },
+        {
+          "word": "stay",
+          "start": 1.439,
+          "end": 1.893
+        },
+        {
+          "word": "quiet,",
+          "start": 1.983,
+          "end": 2.574
+        },
+        {
+          "word": "the",
+          "start": 2.664,
+          "end": 2.999
+        },
+        {
+          "word": "curb",
+          "start": 3.072,
+          "end": 3.527
+        },
+        {
+          "word": "can",
+          "start": 3.617,
+          "end": 3.951
+        },
+        {
+          "word": "sense",
+          "start": 4.025,
+          "end": 4.616
+        },
+        {
+          "word": "fear.",
+          "start": 4.706,
+          "end": 5.25
+        }
+      ],
+      "dubCount": 0,
+      "viewCount": 0,
+      "rightsStatus": "cleared",
+      "rightsOwner": "StealMyScene",
+      "rightsBasis": "Original synthetic visual and authored prompt",
+      "published": true,
+      "createdAt": "2026-08-10T00:00:00.000Z",
+      "updatedAt": "2026-08-10T00:00:00.000Z"
+    },
+    {
+      "id": "scene_015",
+      "slug": "forgot-name",
+      "title": "Name Loading",
+      "quote": "Of course I remember your name, I am building suspense.",
+      "sourceTitle": "StealMyScene Originals — Volume One",
+      "sourceType": "original",
+      "category": "Awkward",
+      "videoUrl": "/scenes/v1/forgot-name.v1.mp4",
+      "thumbnailUrl": "/scenes/v1/forgot-name.v1.jpg",
+      "duration": 6.2,
+      "transcript": "Of course I remember your name, I am building suspense.",
+      "wordTimings": [
+        {
+          "word": "Of",
+          "start": 0.35,
+          "end": 0.546
+        },
+        {
+          "word": "course",
+          "start": 0.589,
+          "end": 1.217
+        },
+        {
+          "word": "I",
+          "start": 1.307,
+          "end": 1.503
+        },
+        {
+          "word": "remember",
+          "start": 1.546,
+          "end": 2.412
+        },
+        {
+          "word": "your",
+          "start": 2.502,
+          "end": 2.894
+        },
+        {
+          "word": "name,",
+          "start": 2.98,
+          "end": 3.373
+        },
+        {
+          "word": "I",
+          "start": 3.459,
+          "end": 3.655
+        },
+        {
+          "word": "am",
+          "start": 3.698,
+          "end": 3.894
+        },
+        {
+          "word": "building",
+          "start": 3.937,
+          "end": 4.803
+        },
+        {
+          "word": "suspense.",
+          "start": 4.893,
+          "end": 5.85
+        }
+      ],
+      "dubCount": 0,
+      "viewCount": 0,
+      "rightsStatus": "cleared",
+      "rightsOwner": "StealMyScene",
+      "rightsBasis": "Original synthetic visual and authored prompt",
+      "published": true,
+      "createdAt": "2026-08-10T00:00:00.000Z",
+      "updatedAt": "2026-08-10T00:00:00.000Z"
+    },
+    {
+      "id": "scene_016",
+      "slug": "delivery-quest",
+      "title": "Delivery Quest",
+      "quote": "Your package is nearby, somewhere in this dimension.",
+      "sourceTitle": "StealMyScene Originals — Volume One",
+      "sourceType": "original",
+      "category": "Mystery",
+      "videoUrl": "/scenes/v1/delivery-quest.v1.mp4",
+      "thumbnailUrl": "/scenes/v1/delivery-quest.v1.jpg",
+      "duration": 5.6,
+      "transcript": "Your package is nearby, somewhere in this dimension.",
+      "wordTimings": [
+        {
+          "word": "Your",
+          "start": 0.35,
+          "end": 0.724
+        },
+        {
+          "word": "package",
+          "start": 0.806,
+          "end": 1.513
+        },
+        {
+          "word": "is",
+          "start": 1.603,
+          "end": 1.79
+        },
+        {
+          "word": "nearby,",
+          "start": 1.831,
+          "end": 2.425
+        },
+        {
+          "word": "somewhere",
+          "start": 2.515,
+          "end": 3.451
+        },
+        {
+          "word": "in",
+          "start": 3.541,
+          "end": 3.728
+        },
+        {
+          "word": "this",
+          "start": 3.769,
+          "end": 4.142
+        },
+        {
+          "word": "dimension.",
+          "start": 4.224,
+          "end": 5.25
+        }
+      ],
+      "dubCount": 0,
+      "viewCount": 0,
+      "rightsStatus": "cleared",
+      "rightsOwner": "StealMyScene",
+      "rightsBasis": "Original synthetic visual and authored prompt",
+      "published": true,
+      "createdAt": "2026-08-10T00:00:00.000Z",
+      "updatedAt": "2026-08-10T00:00:00.000Z"
+    },
+    {
+      "id": "scene_017",
+      "slug": "low-battery",
+      "title": "One Percent",
+      "quote": "Tell my charger I should have listened.",
+      "sourceTitle": "StealMyScene Originals — Volume One",
+      "sourceType": "original",
+      "category": "Drama",
+      "videoUrl": "/scenes/v1/low-battery.v1.mp4",
+      "thumbnailUrl": "/scenes/v1/low-battery.v1.jpg",
+      "duration": 5.3,
+      "transcript": "Tell my charger I should have listened.",
+      "wordTimings": [
+        {
+          "word": "Tell",
+          "start": 0.35,
+          "end": 0.818
+        },
+        {
+          "word": "my",
+          "start": 0.908,
+          "end": 1.136
+        },
+        {
+          "word": "charger",
+          "start": 1.186,
+          "end": 2.072
+        },
+        {
+          "word": "I",
+          "start": 2.162,
+          "end": 2.391
+        },
+        {
+          "word": "should",
+          "start": 2.441,
+          "end": 3.187
+        },
+        {
+          "word": "have",
+          "start": 3.277,
+          "end": 3.745
+        },
+        {
+          "word": "listened.",
+          "start": 3.835,
+          "end": 4.95
+        }
+      ],
+      "dubCount": 0,
+      "viewCount": 0,
+      "rightsStatus": "cleared",
+      "rightsOwner": "StealMyScene",
+      "rightsBasis": "Original synthetic visual and authored prompt",
+      "published": true,
+      "createdAt": "2026-08-10T00:00:00.000Z",
+      "updatedAt": "2026-08-10T00:00:00.000Z"
+    },
+    {
+      "id": "scene_018",
+      "slug": "recipe-rebel",
+      "title": "Recipe Rebel",
+      "quote": "The recipe said gently, and I chose absolute chaos.",
+      "sourceTitle": "StealMyScene Originals — Volume One",
+      "sourceType": "original",
+      "category": "Chaos",
+      "videoUrl": "/scenes/v1/recipe-rebel.v1.mp4",
+      "thumbnailUrl": "/scenes/v1/recipe-rebel.v1.jpg",
+      "duration": 5.9,
+      "transcript": "The recipe said gently, and I chose absolute chaos.",
+      "wordTimings": [
+        {
+          "word": "The",
+          "start": 0.35,
+          "end": 0.655
+        },
+        {
+          "word": "recipe",
+          "start": 0.721,
+          "end": 1.374
+        },
+        {
+          "word": "said",
+          "start": 1.464,
+          "end": 1.87
+        },
+        {
+          "word": "gently,",
+          "start": 1.96,
+          "end": 2.612
+        },
+        {
+          "word": "and",
+          "start": 2.702,
+          "end": 3.007
+        },
+        {
+          "word": "I",
+          "start": 3.074,
+          "end": 3.277
+        },
+        {
+          "word": "chose",
+          "start": 3.321,
+          "end": 3.85
+        },
+        {
+          "word": "absolute",
+          "start": 3.94,
+          "end": 4.841
+        },
+        {
+          "word": "chaos.",
+          "start": 4.931,
+          "end": 5.55
+        }
+      ],
+      "dubCount": 0,
+      "viewCount": 0,
+      "rightsStatus": "cleared",
+      "rightsOwner": "StealMyScene",
+      "rightsBasis": "Original synthetic visual and authored prompt",
+      "published": true,
+      "createdAt": "2026-08-10T00:00:00.000Z",
+      "updatedAt": "2026-08-10T00:00:00.000Z"
+    },
+    {
+      "id": "scene_019",
+      "slug": "mute-button",
+      "title": "The Mute Button",
+      "quote": "That was a private thought with public audio.",
+      "sourceTitle": "StealMyScene Originals — Volume One",
+      "sourceType": "original",
+      "category": "Work",
+      "videoUrl": "/scenes/v1/mute-button.v1.mp4",
+      "thumbnailUrl": "/scenes/v1/mute-button.v1.jpg",
+      "duration": 5.6,
+      "transcript": "That was a private thought with public audio.",
+      "wordTimings": [
+        {
+          "word": "That",
+          "start": 0.35,
+          "end": 0.776
+        },
+        {
+          "word": "was",
+          "start": 0.866,
+          "end": 1.183
+        },
+        {
+          "word": "a",
+          "start": 1.253,
+          "end": 1.464
+        },
+        {
+          "word": "private",
+          "start": 1.511,
+          "end": 2.323
+        },
+        {
+          "word": "thought",
+          "start": 2.413,
+          "end": 3.226
+        },
+        {
+          "word": "with",
+          "start": 3.316,
+          "end": 3.742
+        },
+        {
+          "word": "public",
+          "start": 3.832,
+          "end": 4.515
+        },
+        {
+          "word": "audio.",
+          "start": 4.605,
+          "end": 5.25
+        }
+      ],
+      "dubCount": 0,
+      "viewCount": 0,
+      "rightsStatus": "cleared",
+      "rightsOwner": "StealMyScene",
+      "rightsBasis": "Original synthetic visual and authored prompt",
+      "published": true,
+      "createdAt": "2026-08-10T00:00:00.000Z",
+      "updatedAt": "2026-08-10T00:00:00.000Z"
+    },
+    {
+      "id": "scene_020",
+      "slug": "laundry-mountain",
+      "title": "Laundry Mountain",
+      "quote": "We climb at dawn, bring matching socks.",
+      "sourceTitle": "StealMyScene Originals — Volume One",
+      "sourceType": "original",
+      "category": "Everyday",
+      "videoUrl": "/scenes/v1/laundry-mountain.v1.mp4",
+      "thumbnailUrl": "/scenes/v1/laundry-mountain.v1.jpg",
+      "duration": 5.3,
+      "transcript": "We climb at dawn, bring matching socks.",
+      "wordTimings": [
+        {
+          "word": "We",
+          "start": 0.35,
+          "end": 0.593
+        },
+        {
+          "word": "climb",
+          "start": 0.647,
+          "end": 1.299
+        },
+        {
+          "word": "at",
+          "start": 1.389,
+          "end": 1.632
+        },
+        {
+          "word": "dawn,",
+          "start": 1.685,
+          "end": 2.189
+        },
+        {
+          "word": "bring",
+          "start": 2.279,
+          "end": 2.931
+        },
+        {
+          "word": "matching",
+          "start": 3.021,
+          "end": 4.118
+        },
+        {
+          "word": "socks.",
+          "start": 4.208,
+          "end": 4.95
+        }
+      ],
+      "dubCount": 0,
+      "viewCount": 0,
+      "rightsStatus": "cleared",
+      "rightsOwner": "StealMyScene",
+      "rightsBasis": "Original synthetic visual and authored prompt",
+      "published": true,
+      "createdAt": "2026-08-10T00:00:00.000Z",
+      "updatedAt": "2026-08-10T00:00:00.000Z"
+    },
+    {
+      "id": "scene_021",
+      "slug": "coffee-prophecy",
+      "title": "Coffee Prophecy",
+      "quote": "The mug is empty, so the prophecy is unclear.",
+      "sourceTitle": "StealMyScene Originals — Volume One",
+      "sourceType": "original",
+      "category": "Drama",
+      "videoUrl": "/scenes/v1/coffee-prophecy.v1.mp4",
+      "thumbnailUrl": "/scenes/v1/coffee-prophecy.v1.jpg",
+      "duration": 5.9,
+      "transcript": "The mug is empty, so the prophecy is unclear.",
+      "wordTimings": [
+        {
+          "word": "The",
+          "start": 0.35,
+          "end": 0.715
+        },
+        {
+          "word": "mug",
+          "start": 0.796,
+          "end": 1.161
+        },
+        {
+          "word": "is",
+          "start": 1.241,
+          "end": 1.485
+        },
+        {
+          "word": "empty,",
+          "start": 1.539,
+          "end": 2.191
+        },
+        {
+          "word": "so",
+          "start": 2.281,
+          "end": 2.525
+        },
+        {
+          "word": "the",
+          "start": 2.579,
+          "end": 2.944
+        },
+        {
+          "word": "prophecy",
+          "start": 3.024,
+          "end": 4.123
+        },
+        {
+          "word": "is",
+          "start": 4.213,
+          "end": 4.457
+        },
+        {
+          "word": "unclear.",
+          "start": 4.51,
+          "end": 5.55
+        }
+      ],
+      "dubCount": 0,
+      "viewCount": 0,
+      "rightsStatus": "cleared",
+      "rightsOwner": "StealMyScene",
+      "rightsBasis": "Original synthetic visual and authored prompt",
+      "published": true,
+      "createdAt": "2026-08-10T00:00:00.000Z",
+      "updatedAt": "2026-08-10T00:00:00.000Z"
+    },
+    {
+      "id": "scene_022",
+      "slug": "doorbell-panic",
+      "title": "Doorbell Panic",
+      "quote": "Nobody move, maybe the delivery will forget us.",
+      "sourceTitle": "StealMyScene Originals — Volume One",
+      "sourceType": "original",
+      "category": "Everyday",
+      "videoUrl": "/scenes/v1/doorbell-panic.v1.mp4",
+      "thumbnailUrl": "/scenes/v1/doorbell-panic.v1.jpg",
+      "duration": 5.6,
+      "transcript": "Nobody move, maybe the delivery will forget us.",
+      "wordTimings": [
+        {
+          "word": "Nobody",
+          "start": 0.35,
+          "end": 1.034
+        },
+        {
+          "word": "move,",
+          "start": 1.124,
+          "end": 1.549
+        },
+        {
+          "word": "maybe",
+          "start": 1.639,
+          "end": 2.194
+        },
+        {
+          "word": "the",
+          "start": 2.284,
+          "end": 2.601
+        },
+        {
+          "word": "delivery",
+          "start": 2.671,
+          "end": 3.613
+        },
+        {
+          "word": "will",
+          "start": 3.703,
+          "end": 4.128
+        },
+        {
+          "word": "forget",
+          "start": 4.218,
+          "end": 4.902
+        },
+        {
+          "word": "us.",
+          "start": 4.992,
+          "end": 5.25
+        }
+      ],
+      "dubCount": 0,
+      "viewCount": 0,
+      "rightsStatus": "cleared",
+      "rightsOwner": "StealMyScene",
+      "rightsBasis": "Original synthetic visual and authored prompt",
+      "published": true,
+      "createdAt": "2026-08-10T00:00:00.000Z",
+      "updatedAt": "2026-08-10T00:00:00.000Z"
+    },
+    {
+      "id": "scene_023",
+      "slug": "password-ritual",
+      "title": "Password Ritual",
+      "quote": "One uppercase rune, two numbers, and my first memory.",
+      "sourceTitle": "StealMyScene Originals — Volume One",
+      "sourceType": "original",
+      "category": "Mystery",
+      "videoUrl": "/scenes/v1/password-ritual.v1.mp4",
+      "thumbnailUrl": "/scenes/v1/password-ritual.v1.jpg",
+      "duration": 5.9,
+      "transcript": "One uppercase rune, two numbers, and my first memory.",
+      "wordTimings": [
+        {
+          "word": "One",
+          "start": 0.35,
+          "end": 0.655
+        },
+        {
+          "word": "uppercase",
+          "start": 0.721,
+          "end": 1.746
+        },
+        {
+          "word": "rune,",
+          "start": 1.836,
+          "end": 2.242
+        },
+        {
+          "word": "two",
+          "start": 2.331,
+          "end": 2.636
+        },
+        {
+          "word": "numbers,",
+          "start": 2.702,
+          "end": 3.479
+        },
+        {
+          "word": "and",
+          "start": 3.569,
+          "end": 3.874
+        },
+        {
+          "word": "my",
+          "start": 3.94,
+          "end": 4.144
+        },
+        {
+          "word": "first",
+          "start": 4.188,
+          "end": 4.717
+        },
+        {
+          "word": "memory.",
+          "start": 4.807,
+          "end": 5.55
+        }
+      ],
+      "dubCount": 0,
+      "viewCount": 0,
+      "rightsStatus": "cleared",
+      "rightsOwner": "StealMyScene",
+      "rightsBasis": "Original synthetic visual and authored prompt",
+      "published": true,
+      "createdAt": "2026-08-10T00:00:00.000Z",
+      "updatedAt": "2026-08-10T00:00:00.000Z"
+    },
+    {
+      "id": "scene_024",
+      "slug": "final-tab",
+      "title": "The Final Tab",
+      "quote": "I closed one browser tab and discovered inner peace.",
+      "sourceTitle": "StealMyScene Originals — Volume One",
+      "sourceType": "original",
+      "category": "Everyday",
+      "videoUrl": "/scenes/v1/final-tab.v1.mp4",
+      "thumbnailUrl": "/scenes/v1/final-tab.v1.jpg",
+      "duration": 5.9,
+      "transcript": "I closed one browser tab and discovered inner peace.",
+      "wordTimings": [
+        {
+          "word": "I",
+          "start": 0.35,
+          "end": 0.544
+        },
+        {
+          "word": "closed",
+          "start": 0.586,
+          "end": 1.205
+        },
+        {
+          "word": "one",
+          "start": 1.295,
+          "end": 1.586
+        },
+        {
+          "word": "browser",
+          "start": 1.65,
+          "end": 2.387
+        },
+        {
+          "word": "tab",
+          "start": 2.477,
+          "end": 2.768
+        },
+        {
+          "word": "and",
+          "start": 2.832,
+          "end": 3.123
+        },
+        {
+          "word": "discovered",
+          "start": 3.186,
+          "end": 4.278
+        },
+        {
+          "word": "inner",
+          "start": 4.368,
+          "end": 4.869
+        },
+        {
+          "word": "peace.",
+          "start": 4.959,
+          "end": 5.55
+        }
+      ],
+      "dubCount": 0,
+      "viewCount": 0,
+      "rightsStatus": "cleared",
+      "rightsOwner": "StealMyScene",
+      "rightsBasis": "Original synthetic visual and authored prompt",
+      "published": true,
+      "createdAt": "2026-08-10T00:00:00.000Z",
+      "updatedAt": "2026-08-10T00:00:00.000Z"
+    }
+  ]
+}
