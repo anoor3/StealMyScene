@@ -5,7 +5,8 @@
   --surface: #17131a;
   --surface-2: #211b24;
   --line: rgba(255, 255, 255, 0.11);
-  --accent: #ff4d6d;
+  --accent: #d52a4f;
+  --accent-hover: #c51f46;
   --accent-bright: #ff7089;
   --focus: #ffd166;
   --shell: min(1180px, calc(100vw - 40px));
@@ -93,7 +94,7 @@ img, video { display: block; max-width: 100%; }
   text-transform: uppercase;
   transition: background .2s, border-color .2s, transform .2s;
 }
-.button:hover { background: var(--accent-bright); border-color: var(--accent-bright); transform: translateY(-2px); }
+.button:hover { background: var(--accent-hover); border-color: var(--accent-hover); transform: translateY(-2px); }
 .button:disabled { cursor: not-allowed; opacity: .55; transform: none; }
 .button--secondary { background: transparent; border-color: var(--line); color: var(--ink); }
 .button--secondary:hover { background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.24); }

@@ -1,11 +1,22 @@
 import { execFileSync, spawn } from "node:child_process";
 import { mkdirSync } from "node:fs";
+import AxeBuilder from "@axe-core/playwright";
 import { chromium } from "playwright-core";
 
 const origin = "http://127.0.0.1:3100";
 const chromePath = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 const artifacts = "test-results/studio";
 mkdirSync(artifacts, { recursive: true });
+
+async function assertAccessible(page, label) {
+  const results = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"]).analyze();
+  if (results.violations.length > 0) {
+    const summary = results.violations.map(({ id, impact, nodes }) =>
+      `${id} (${impact}): ${nodes.map((node) => `${node.target.join(" ")} — ${node.failureSummary}`).join(" | ")}`
+    ).join(", ");
+    throw new Error(`${label} accessibility violations: ${summary}`);
+  }
+}
 
 async function waitForServer(attempts = 40) {
   for (let attempt = 0; attempt < attempts; attempt += 1) {
@@ -77,6 +88,7 @@ try {
   await page.goto(`${origin}/dub/scene_001`, { waitUntil: "domcontentloaded" });
   await page.getByRole("button", { name: "Add your voice" }).waitFor();
   if (!(await page.evaluate(() => crossOriginIsolated))) throw new Error("Cross-origin isolation is not active");
+  await assertAccessible(page, "Ready studio");
   await page.screenshot({ path: `${artifacts}/ready-desktop.png`, fullPage: true });
   await page.getByRole("button", { name: "Add your voice" }).click();
   await page.getByText("Take recorded. Preview it or create the final scene.").waitFor({ timeout: 15_000 });
@@ -104,11 +116,26 @@ try {
     throw new Error(`Unexpected rendered media: ${JSON.stringify(probe)}`);
   }
   await page.screenshot({ path: `${artifacts}/finished-desktop.png`, fullPage: true });
+  await assertAccessible(page, "Finished studio");
 
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto(`${origin}/explore`, { waitUntil: "domcontentloaded" });
   await page.screenshot({ path: `${artifacts}/explore-mobile.png`, fullPage: true });
   if (!(await page.getByRole("heading", { name: "Find your line." }).isVisible())) throw new Error("Mobile explore content is not visible");
+  await assertAccessible(page, "Mobile explore");
+
+  const denialPage = await context.newPage();
+  await denialPage.addInitScript(() => {
+    if (navigator.mediaDevices) {
+      navigator.mediaDevices.getUserMedia = async () => { throw new DOMException("Denied for acceptance test", "NotAllowedError"); };
+    }
+  });
+  await denialPage.goto(`${origin}/dub/scene_002`, { waitUntil: "domcontentloaded" });
+  await denialPage.getByRole("button", { name: "Add your voice" }).click();
+  await denialPage.getByText("Microphone permission denied.").waitFor();
+  if (!(await denialPage.getByRole("button", { name: "Allow microphone & retry" }).isVisible())) throw new Error("Permission retry path is not visible");
+  await assertAccessible(denialPage, "Permission-denied studio");
+  await denialPage.close();
 
   const actionableErrors = browserErrors.filter((message) =>
     !message.includes("favicon") && !message.startsWith("Failed to load resource: the server responded with a status of 404")
@@ -118,6 +145,7 @@ try {
 
   console.log("E2E passed: permission → countdown → timed recording → preview → local FFmpeg render → MP4 download");
   console.log("E2E passed: cross-origin isolation, no external requests, and 390px mobile explore layout");
+  console.log("E2E passed: WCAG A/AA automated scans and microphone-denied recovery path");
 } catch (error) {
   if (page) {
     await page.screenshot({ path: `${artifacts}/failure.png`, fullPage: true }).catch(() => undefined);

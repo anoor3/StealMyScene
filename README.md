@@ -16,6 +16,8 @@ Open `http://localhost:3000`. The public guest experience works without environm
 
 The internal ingestion desk is at `/admin/scenes`. Local development uses `var/` for quarantined, accepted, and processed media. Production should use `STORAGE_DRIVER=s3`, configure the object-created validator described in [`infra/storage-trigger/README.md`](./infra/storage-trigger/README.md), and provide a deploy rebuild hook so newly published immutable assets and the versioned manifest become active.
 
+Set `ENABLE_HSTS=true` only on the real HTTPS deployment. It is intentionally off for local HTTP because HSTS would make WebKit upgrade local CSS and media requests to HTTPS.
+
 ## Verification
 
 ```bash

@@ -18,6 +18,7 @@
     "test:coverage": "vitest run --coverage",
     "test:e2e": "node scripts/e2e-studio.mjs",
     "test:e2e:admin": "node scripts/e2e-admin.mjs",
+    "test:e2e:webkit": "node scripts/e2e-webkit.mjs",
     "generate:scenes": "node scripts/generate-original-scenes.mjs",
     "sync:catalog": "node scripts/sync-catalog.mjs",
     "prepare:ffmpeg": "node scripts/prepare-ffmpeg.mjs",
@@ -37,6 +38,7 @@
     "zod": "latest"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.12.1",
     "@testing-library/jest-dom": "latest",
     "@testing-library/react": "latest",
     "@testing-library/user-event": "latest",

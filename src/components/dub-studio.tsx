@@ -85,11 +85,20 @@ export function DubStudio({ scene }: { scene: Scene }) {
       return;
     }
 
+    let stream: MediaStream;
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({
+      stream = await navigator.mediaDevices.getUserMedia({
         audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true },
         video: false
       });
+    } catch (error) {
+      cleanCapture();
+      const failure = microphoneErrorMessage(error);
+      dispatch(failure.denied ? { type: "PERMISSION_DENIED" } : { type: "FAIL", message: failure.message });
+      return;
+    }
+
+    try {
       streamRef.current = stream;
       const AudioContextClass = window.AudioContext;
       const audioContext = new AudioContextClass();
@@ -139,8 +148,10 @@ export function DubStudio({ scene }: { scene: Scene }) {
       stopTimerRef.current = setTimeout(stopRecording, (scene.duration + 0.75) * 1000);
     } catch (error) {
       cleanCapture();
-      const failure = microphoneErrorMessage(error);
-      dispatch(failure.denied ? { type: "PERMISSION_DENIED" } : { type: "FAIL", message: failure.message });
+      const detail = error instanceof DOMException
+        ? `${error.name}: ${error.message}`
+        : error instanceof Error ? error.message : "unknown browser failure";
+      dispatch({ type: "FAIL", message: `Recording could not start (${detail}). Reload the scene and try again.` });
     }
   }
 
