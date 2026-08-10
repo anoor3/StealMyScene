@@ -14,6 +14,8 @@ npm run dev
 
 Open `http://localhost:3000`. The public guest experience works without environment secrets. Admin authentication and S3/R2 ingestion require the values documented in `.env.example`.
 
+The internal ingestion desk is at `/admin/scenes`. Local development uses `var/` for quarantined, accepted, and processed media. Production should use `STORAGE_DRIVER=s3`, configure the object-created validator described in [`infra/storage-trigger/README.md`](./infra/storage-trigger/README.md), and provide a deploy rebuild hook so newly published immutable assets and the versioned manifest become active.
+
 ## Verification
 
 ```bash

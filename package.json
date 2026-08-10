@@ -8,6 +8,7 @@
   },
   "scripts": {
     "dev": "next dev",
+    "prebuild": "npm run prepare:ffmpeg && npm run sync:catalog",
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
@@ -16,7 +17,9 @@
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "test:e2e": "node scripts/e2e-studio.mjs",
+    "test:e2e:admin": "node scripts/e2e-admin.mjs",
     "generate:scenes": "node scripts/generate-original-scenes.mjs",
+    "sync:catalog": "node scripts/sync-catalog.mjs",
     "prepare:ffmpeg": "node scripts/prepare-ffmpeg.mjs",
     "postinstall": "npm run prepare:ffmpeg",
     "verify": "npm run lint && npm run typecheck && npm run test && npm run build"
