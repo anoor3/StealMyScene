@@ -18,7 +18,7 @@ This is the live delivery ledger for [`StealMyScene_Complete_Plan.md`](./StealMy
 
 | Stage | Outcome | Entry requirement | Exit gate | Status |
 |---|---|---|---|---|
-| Phase 0 — Planning controls | Canonical scope, traceability, and execution rules are established. | Repository initialized. | All 16 plan sections mapped; progress and rules documents committed and pushed. | In progress |
+| Phase 0 — Planning controls | Canonical scope, traceability, and execution rules are established. | Repository initialized. | All 16 plan sections mapped; progress and rules documents committed and pushed. | Complete |
 | Phase 1 — Prove the Loop | A guest can browse, record, preview, render, and download a rights-safe scene. | Phase 0 complete. | Measure second-scene dubbing; test toward the plan's 20–25% hypothesis before expanding scope. | Not started |
 | Phase 2 — Shareable & Load-Proven | Outputs can be shared and the static/CDN architecture is demonstrated under load. | Phase 1 loop works and is instrumented. | p95 time-to-first-frame stays flat toward 100k simulated concurrency and CDN cache hit ratio remains roughly 95%+. | Not started |
 | Phase 3 — Real Audio | User dialogue replaces dialogue while music and effects remain. | Stable ingestion and render paths. | Compare download/share performance against the Phase 1/2 flat-replacement baseline. | Not started |
@@ -33,7 +33,7 @@ This is the live delivery ledger for [`StealMyScene_Complete_Plan.md`](./StealMy
 | P0-02 | Create a phase-by-phase progress ledger. | This document maps phases and all plan sections. | Complete |
 | P0-03 | Create durable engineering execution rules. | `ENGINEERING_EXECUTION_RULES.md` covers workflow, tests, commits, pushes, security, and mistake prevention. | Complete |
 | P0-04 | Establish baseline repository state. | Initial repository contains the plan and documentation; implementation is explicitly not yet started. | Complete |
-| P0-05 | Commit and push the planning baseline. | Commit hash and remote branch recorded in the delivery log. | In progress |
+| P0-05 | Commit and push the planning baseline. | Commit hash and remote branch recorded in the delivery log. | Complete |
 
 ## Phase 1 — Prove the Loop
 
@@ -160,4 +160,4 @@ An implementation row is not `Complete` until all applicable evidence is present
 
 | Date | Phase / IDs | Summary | Verification | Commit / remote |
 |---|---|---|---|---|
-| 2026-08-10 | P0-01–P0-05 | Added scope completeness, full traceability, and engineering execution controls. | Markdown structure/link review and repository diff review. | Pending commit and push |
+| 2026-08-10 | P0-01–P0-05 | Added scope completeness, full traceability, and engineering execution controls. | All 16 plan sections mapped; Markdown structure/link review and clean staged-diff check. | `5084e38` pushed to `origin/main` |
