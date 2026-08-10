@@ -191,7 +191,7 @@ export function AdminSceneDesk() {
                   <label><span>Start · {trimStart.toFixed(1)}s</span><input type="range" min="0" max={Math.max(0, sourceDuration - 1)} step="0.1" value={trimStart} onChange={(event) => setTrimStart(Math.min(Number(event.target.value), trimEnd - 1))} /></label>
                   <label><span>End · {trimEnd.toFixed(1)}s</span><input type="range" min="1" max={sourceDuration} step="0.1" value={trimEnd} onChange={(event) => setTrimEnd(Math.max(Number(event.target.value), trimStart + 1))} /></label>
                   <strong>Selected: {trimDuration.toFixed(1)} seconds</strong>
-                  <label className="field"><span>Expected line <small>(optional aid in local test mode)</small></span><input value={transcriptHint} maxLength={500} onChange={(event) => setTranscriptHint(event.target.value)} placeholder="WhisperX will transcribe the clip automatically" /></label>
+                  <label className="field"><span>Expected line <small>(required in local fixture mode)</small></span><input value={transcriptHint} maxLength={500} onChange={(event) => setTranscriptHint(event.target.value)} placeholder="WhisperX will transcribe the clip automatically" /></label>
                   <button className="button" type="button" onClick={() => void ingest()} disabled={stage === "uploading" || stage === "processing"}>
                     {stage === "uploading" ? `Uploading ${Math.round(progress * 100)}%` : stage === "processing" ? "Trimming & transcribing…" : "Process selected clip"}
                   </button>
