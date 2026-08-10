@@ -17,7 +17,7 @@ const securityHeaders = [
       "default-src 'self'",
       // Next.js static App Router emits small inline bootstrapping scripts. A nonce
       // would make every route dynamic, defeating Phase 1's CDN-first architecture.
-      "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'",
+      `script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'${process.env.NODE_ENV === "development" ? " 'unsafe-eval'" : ""}`,
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: blob:",
       "media-src 'self' blob:",
@@ -34,6 +34,7 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  agentRules: false,
   poweredByHeader: false,
   turbopack: {
     root: process.cwd()
