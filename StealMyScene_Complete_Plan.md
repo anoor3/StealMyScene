@@ -7,7 +7,7 @@ This document supersedes the scattered version — it's organized by **build pha
 
 > **Completeness contract:** This is the canonical product and engineering scope. No phase, requirement, safeguard, fallback, exit signal, or deliberately deferred item in this plan may be silently skipped. Every item must be tracked in [`PROJECT_PROGRESS.md`](./PROJECT_PROGRESS.md), and implementation must follow [`ENGINEERING_EXECUTION_RULES.md`](./ENGINEERING_EXECUTION_RULES.md). If reality requires a change, the change and its reason must be recorded in all affected documents before work proceeds; an item is never treated as complete merely because it was omitted from a build.
 
-**Current status (2026-08-10):** planning and traceability setup. Product implementation has not started. Phase 1 is the first implementation phase; later phases remain gated by the exit signals defined below.
+**Current status (2026-08-10):** Phase 1 implementation and acceptance verification are complete. P1-17 remains explicitly awaiting real-user traffic because the 20–25% second-scene hypothesis cannot be truthfully evaluated from synthetic tests. Phase 2 remains gated until that live exit-signal review is recorded in [`PROJECT_PROGRESS.md`](./PROJECT_PROGRESS.md).
 
 ---
 

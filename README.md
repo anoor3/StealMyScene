@@ -26,6 +26,8 @@ npm run verify
 
 This runs linting, strict TypeScript checks, automated tests, and a production build.
 
+Phase 1's browser, accessibility, privacy, media, admin, and deployment evidence is recorded in [`docs/PHASE_1_VERIFICATION.md`](./docs/PHASE_1_VERIFICATION.md).
+
 To deterministically regenerate the 24 original, rights-cleared gradient scenes and their manifest:
 
 ```bash

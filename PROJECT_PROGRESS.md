@@ -10,6 +10,7 @@ This is the live delivery ledger for [`StealMyScene_Complete_Plan.md`](./StealMy
 |---|---|
 | `Not started` | No implementation has begun. |
 | `In progress` | Active work exists, but acceptance criteria are not fully met. |
+| `Awaiting data` | The implementation and instrumentation are complete, but an evidence gate requires real usage data. |
 | `Blocked` | Work cannot safely continue; the blocker and owner must be recorded. |
 | `Deferred` | Intentionally assigned to a later named phase by the canonical plan. |
 | `Complete` | Implemented, reviewed, tested, documented, committed, and pushed with evidence. |
@@ -19,7 +20,7 @@ This is the live delivery ledger for [`StealMyScene_Complete_Plan.md`](./StealMy
 | Stage | Outcome | Entry requirement | Exit gate | Status |
 |---|---|---|---|---|
 | Phase 0 — Planning controls | Canonical scope, traceability, and execution rules are established. | Repository initialized. | All 16 plan sections mapped; progress and rules documents committed and pushed. | Complete |
-| Phase 1 — Prove the Loop | A guest can browse, record, preview, render, and download a rights-safe scene. | Phase 0 complete. | Measure second-scene dubbing; test toward the plan's 20–25% hypothesis before expanding scope. | Not started |
+| Phase 1 — Prove the Loop | A guest can browse, record, preview, render, and download a rights-safe scene. | Phase 0 complete. | Measure second-scene dubbing; test toward the plan's 20–25% hypothesis before expanding scope. | Awaiting data |
 | Phase 2 — Shareable & Load-Proven | Outputs can be shared and the static/CDN architecture is demonstrated under load. | Phase 1 loop works and is instrumented. | p95 time-to-first-frame stays flat toward 100k simulated concurrency and CDN cache hit ratio remains roughly 95%+. | Not started |
 | Phase 3 — Real Audio | User dialogue replaces dialogue while music and effects remain. | Stable ingestion and render paths. | Compare download/share performance against the Phase 1/2 flat-replacement baseline. | Not started |
 | Phase 4 — Identity & Retention | Optional accounts add saving, gallery, likes, and retention without blocking guests. | Core guest loop remains healthy. | Measure guest-to-account conversion and two-week retention improvement. | Not started |
@@ -39,23 +40,23 @@ This is the live delivery ledger for [`StealMyScene_Complete_Plan.md`](./StealMy
 
 | ID | Deliverable | Acceptance evidence | Status |
 |---|---|---|---|
-| P1-01 | Build the Next.js/React public shell and guest-only navigation. | Production build passes; homepage and navigation work at target breakpoints. | Not started |
-| P1-02 | Build Homepage, Explore, search/filtering, Scene detail, and related scenes. | Automated route/component checks plus manual browser verification. | Not started |
-| P1-03 | Publish 20–30 hand-picked rights-safe scenes. | Each scene has explicit allowed `rightsStatus`; no uncleared scene can publish. | Not started |
-| P1-04 | Define and serve the versioned `scenes.json` catalog and immutable media/transcript assets through object storage/CDN. | Schema validation, cache-header checks, and successful static/ISR page generation. | Not started |
-| P1-05 | Implement microphone permission and capture using `getUserMedia` and `MediaRecorder`. | Supported-browser tests cover allow, deny, missing device, interruption, and cleanup. | Not started |
-| P1-06 | Implement countdown, clip-synchronized recording, hard stop at clip duration, timer, and live waveform. | Timing tests and browser evidence show recording cannot unintentionally outlast the scene. | Not started |
-| P1-07 | Implement timestamp-driven transcript/karaoke highlighting while source dialogue is muted. | Word-boundary tests and manual sync review on representative clips. | Not started |
-| P1-08 | Implement unlimited retakes and every defined UI state: Ready, Countdown, Recording, Processing, Finished, and Permission denied. | State-transition tests cover success, cancellation, denial, retry, and failure paths. | Not started |
-| P1-09 | Implement near-instant local preview of muted video plus the recorded voice. | Playback starts promptly and stays acceptably synchronized on supported devices. | Not started |
-| P1-10 | Implement client-side `ffmpeg.wasm` rendering with video stream copy and new AAC audio. | Output plays in target browsers; duration, A/V sync, and codec/container are verified. | Not started |
-| P1-11 | Configure cross-origin isolation required for multithreaded WASM and handle unsupported/memory-constrained devices clearly. | Header checks pass; capability and render-failure states do not strand the user. | Not started |
-| P1-12 | Implement local Blob download with no user-media upload or Dub database row. | Network inspection confirms the local-only critical path; downloaded MP4 is valid. | Not started |
-| P1-13 | Build authenticated internal ingestion: presigned direct/multipart upload, trim UI, precise server cut, Whisper + WhisperX timing, transcript/waveform correction, thumbnail, metadata, rights gate, and publish/rebuild. | End-to-end admin test publishes a validated scene; invalid media and uncleared rights are rejected. | Not started |
-| P1-14 | Apply foundational security: HTTPS/HSTS, CSP, admin auth, scoped short-lived upload URLs, rate limits, and server-side storage-trigger validation/quarantine. | Security checks and negative-path tests pass; secrets are not exposed client-side or committed. | Not started |
-| P1-15 | Add basic pageview and core-loop funnel measurement without adding blocking writes. | Events can measure open → record → finish → preview → retry → download and second-scene dub. | Not started |
-| P1-16 | Validate accessibility, responsive behavior, resource cleanup, and representative browser/device compatibility. | Agreed browser matrix and accessibility checks pass with documented exceptions. | Not started |
-| P1-17 | Evaluate the Phase 1 exit signal. | Second-scene rate is reported against the 20–25% test hypothesis; decision is documented before Phase 2. | Not started |
+| P1-01 | Build the Next.js/React public shell and guest-only navigation. | Next.js 16/React 19 shell; 66-route production build; Chrome and WebKit navigation checks. | Complete |
+| P1-02 | Build Homepage, Explore, search/filtering, Scene detail, and related scenes. | Public discovery E2E and catalog unit tests cover the implemented routes and discovery behavior. | Complete |
+| P1-03 | Publish 20–30 hand-picked rights-safe scenes. | 24 original generated scenes; rights declaration and schema-enforced `cleared` publication gate. | Complete |
+| P1-04 | Define and serve the versioned `scenes.json` catalog and immutable media/transcript assets through object storage/CDN. | Manifest v2, immutable v1 asset names, schema tests, static generation, CDN sync adapter, and cache headers. | Complete |
+| P1-05 | Implement microphone permission and capture using `getUserMedia` and `MediaRecorder`. | Chrome/WebKit allow flows, denied/retry E2E, unsupported/error mapping, and teardown logic pass. | Complete |
+| P1-06 | Implement countdown, clip-synchronized recording, hard stop at clip duration, timer, and live waveform. | Browser E2E verifies countdown and timed stop; state/media unit tests and analyser waveform are present. | Complete |
+| P1-07 | Implement timestamp-driven transcript/karaoke highlighting while source dialogue is muted. | Word-boundary unit tests and browser recording flow verify timing-driven highlighting with muted source. | Complete |
+| P1-08 | Implement unlimited retakes and every defined UI state: Ready, Countdown, Recording, Processing, Finished, and Permission denied. | Reducer tests plus allow, deny/retry, processing, completion, retake, and error UI coverage. | Complete |
+| P1-09 | Implement near-instant local preview of muted video plus the recorded voice. | Chrome and WebKit E2E both preview the local take before rendering. | Complete |
+| P1-10 | Implement client-side `ffmpeg.wasm` rendering with video stream copy and new AAC audio. | Self-hosted single/multithread cores; both browser E2Es render and FFprobe-validates H.264/AAC MP4 output. | Complete |
+| P1-11 | Configure cross-origin isolation required for multithreaded WASM and handle unsupported/memory-constrained devices clearly. | Chrome asserts isolation; renderer selects multithread/single-thread capability and exposes actionable failures. | Complete |
+| P1-12 | Implement local Blob download with no user-media upload or Dub database row. | Browser network inspection finds zero external recording requests; valid output downloads locally. | Complete |
+| P1-13 | Build authenticated internal ingestion: presigned direct/multipart upload, trim UI, precise server cut, Whisper + WhisperX timing, transcript/waveform correction, thumbnail, metadata, rights gate, and publish/rebuild. | Isolated admin E2E covers auth, upload, FFmpeg trim, alignment review, rights rejection, publish, manifest v2, and H.264 output. | Complete |
+| P1-14 | Apply foundational security: HTTPS/HSTS, CSP, admin auth, scoped short-lived upload URLs, rate limits, and server-side storage-trigger validation/quarantine. | HTTPS-only HSTS switch, CSP/isolation headers, signed sessions, same-origin/rate checks, scoped presigning, magic-byte/FFprobe quarantine worker, and negative tests. | Complete |
+| P1-15 | Add basic pageview and core-loop funnel measurement without adding blocking writes. | Anonymous batched events cover page/open/record/preview/retake/render/download/second dub; Global Privacy Control is honored. | Complete |
+| P1-16 | Validate accessibility, responsive behavior, resource cleanup, and representative browser/device compatibility. | Chrome and WebKit mobile E2E, WCAG 2 A/AA Axe scans, corrected contrast, media teardown, and valid downloads pass. | Complete |
+| P1-17 | Evaluate the Phase 1 exit signal. | Instrumentation is live; report `second_scene_dub` sessions divided by sessions with `record_start` against the 20–25% hypothesis after representative traffic. | Awaiting data |
 
 **Explicit Phase 1 deferrals:** accounts, user profiles, public gallery, comments, likes, durable Dub/User records, source separation, deep analytics, and user-hosted share links. These remain tracked in their assigned later phases; they are not forgotten work.
 
@@ -155,9 +156,16 @@ An implementation row is not `Complete` until all applicable evidence is present
 | Date | Type | Related IDs | Record | Resolution / prevention | Status |
 |---|---|---|---|---|---|
 | 2026-08-10 | Decision | All | The canonical plan remains authoritative; implementation begins with Phase 1 only after Phase 0 is complete. | Use this ledger and the execution rules as required gates. | Active |
+| 2026-08-10 | Defect | P1-14, P1-16 | Unconditional HSTS/CSP upgrading broke local HTTP assets in WebKit. | Enable transport upgrading only when `ENABLE_HSTS=true` on a real HTTPS deployment; WebKit E2E protects local compatibility. | Resolved |
+| 2026-08-10 | Defect | P1-05, P1-16 | One broad recording catch misclassified post-permission browser failures as microphone denial. | Isolate `getUserMedia` permission handling from recorder/playback setup failures and preserve specific recovery messages. | Resolved |
+| 2026-08-10 | Gate | P1-17 | Synthetic tests cannot establish whether 20–25% of real people dub a second scene. | Keep Phase 2 gated; collect representative anonymous sessions and record the denominator, numerator, rate, window, and decision here. | Awaiting data |
 
 ## Delivery log
 
 | Date | Phase / IDs | Summary | Verification | Commit / remote |
 |---|---|---|---|---|
 | 2026-08-10 | P0-01–P0-05 | Added scope completeness, full traceability, and engineering execution controls. | All 16 plan sections mapped; Markdown structure/link review and clean staged-diff check. | `5084e38` pushed to `origin/main` |
+| 2026-08-10 | P1-01–P1-04, P1-15 | Launched public discovery, 24-scene rights-safe catalog, static routes, manifest, and analytics. | Catalog tests and production build. | `d0d987e` pushed to `origin/main` |
+| 2026-08-10 | P1-05–P1-12 | Completed local capture, synchronized studio states, preview, FFmpeg render, and download. | Chrome end-to-end output validated as H.264/AAC with no external recording requests. | `7371636` pushed to `origin/main` |
+| 2026-08-10 | P1-13–P1-14 | Completed authenticated, validated, rights-gated ingestion and publication. | Admin E2E rejects bad auth/pending rights and publishes a precisely processed manifest-v2 scene. | `78987f2` pushed to `origin/main` |
+| 2026-08-10 | P1-05, P1-10–P1-12, P1-14, P1-16 | Added Chrome/WebKit compatibility, accessibility gates, denial recovery, and safe HTTPS policy activation. | Chrome and WebKit E2E, WCAG A/AA, valid MP4, lint, type-check, 20 tests, and 66-route build. | `4eef9e9` pushed to `origin/main` |
