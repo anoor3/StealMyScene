@@ -12,7 +12,9 @@ const securityHeaders = [
     key: "Content-Security-Policy",
     value: [
       "default-src 'self'",
-      "script-src 'self' 'wasm-unsafe-eval'",
+      // Next.js static App Router emits small inline bootstrapping scripts. A nonce
+      // would make every route dynamic, defeating Phase 1's CDN-first architecture.
+      "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'",
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: blob:",
       "media-src 'self' blob:",

@@ -33,7 +33,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
           <nav aria-label="Footer navigation">
             <Link href="/explore">Explore</Link>
             <Link href="/how-it-works">How it works</Link>
-            <Link href="/admin/scenes">Admin</Link>
+            <Link href="/admin/scenes" prefetch={false}>Admin</Link>
           </nav>
         </footer>
       </body>

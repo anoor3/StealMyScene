@@ -15,12 +15,17 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
+    "test:e2e": "node scripts/e2e-studio.mjs",
     "generate:scenes": "node scripts/generate-original-scenes.mjs",
+    "prepare:ffmpeg": "node scripts/prepare-ffmpeg.mjs",
+    "postinstall": "npm run prepare:ffmpeg",
     "verify": "npm run lint && npm run typecheck && npm run test && npm run build"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "latest",
     "@aws-sdk/s3-request-presigner": "latest",
+    "@ffmpeg/core": "^0.12.10",
+    "@ffmpeg/core-mt": "^0.12.10",
     "@ffmpeg/ffmpeg": "latest",
     "@ffmpeg/util": "latest",
     "next": "latest",
@@ -39,6 +44,7 @@
     "eslint": "latest",
     "eslint-config-next": "latest",
     "jsdom": "^29.0.0",
+    "playwright-core": "^1.62.1",
     "typescript": "latest",
     "vitest": "latest"
   }
