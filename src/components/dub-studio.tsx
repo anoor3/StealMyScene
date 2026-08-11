@@ -9,6 +9,7 @@ import { renderDub } from "@/lib/studio/render";
 import { canShareDubFile, createDubFile, shareDubFile } from "@/lib/studio/share";
 import { initialStudioState, studioReducer } from "@/lib/studio/state";
 import { Waveform } from "./waveform";
+import { HostedLinkControls } from "./hosted-link-controls";
 
 function stopStream(stream?: MediaStream | null) {
   stream?.getTracks().forEach((track) => track.stop());
@@ -351,6 +352,7 @@ export function DubStudio({ scene, sourceClip, sourcePoster, onExit }: DubStudio
               <button className={shareAvailable ? "button button--secondary button--full" : "button button--full"} type="button" onClick={download}>↓ Download MP4</button>
               {!shareAvailable && <p className="share-note">File sharing is not available here. Your MP4 download still works.</p>}
               {shareMessage && <p className="share-note" role="status">{shareMessage}</p>}
+              {result && <HostedLinkControls output={result} filename={filename} title={scene.title} transcriptHint={scene.quote} sceneId={scene.id} />}
               <button className="quiet-button" type="button" onClick={retake}>↻ Record another take</button>
               <Link className="quiet-button" href="/explore">Try another scene →</Link>
             </div>

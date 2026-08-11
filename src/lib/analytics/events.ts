@@ -9,6 +9,8 @@ export const analyticsEventNameSchema = z.enum([
   "retake",
   "render_finish",
   "share",
+  "link_create",
+  "link_rejected",
   "download",
   "second_scene_dub"
 ]);

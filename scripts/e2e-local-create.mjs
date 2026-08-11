@@ -1,6 +1,6 @@
 import { strict as assert } from "node:assert";
 import { execFileSync, spawn } from "node:child_process";
-import { mkdirSync } from "node:fs";
+import { mkdirSync, readFileSync } from "node:fs";
 import AxeBuilder from "@axe-core/playwright";
 import { chromium } from "playwright-core";
 
@@ -26,7 +26,13 @@ async function assertAccessible(page, label) {
 }
 
 const server = spawn("npm", ["run", "start", "--", "--hostname", "127.0.0.1", "--port", "3102"], {
-  stdio: ["ignore", "pipe", "pipe"]
+  stdio: ["ignore", "pipe", "pipe"],
+  env: {
+    ...process.env,
+    TRANSCRIPTION_DRIVER: "fixture",
+    ALLOW_FIXTURE_TRANSCRIPTION: "true",
+    SHARE_CLEANUP_SECRET: "phase-2-e2e-cleanup-secret"
+  }
 });
 let serverLog = "";
 server.stdout.on("data", (chunk) => { serverLog += chunk.toString(); });
@@ -94,6 +100,18 @@ try {
   await page.getByRole("button", { name: "Download MP4" }).waitFor({ timeout: 120_000 });
   await page.getByRole("button", { name: "Share scene" }).click();
   assert.equal(await page.evaluate(() => globalThis.__smsSharedFile), "steal-my-scene-your-video.mp4");
+  await page.getByRole("button", { name: "Get a temporary link" }).click();
+  await page.getByText("Temporary link ready").waitFor({ timeout: 60_000 });
+  const publicLink = await page.locator(".hosted-link--ready a").getAttribute("href");
+  assert.ok(publicLink?.startsWith(origin));
+  const sharedPage = await context.newPage();
+  await sharedPage.goto(publicLink, { waitUntil: "networkidle" });
+  await sharedPage.getByLabel(/shared dub/).waitFor();
+  const sharedMediaSource = await sharedPage.getByLabel(/shared dub/).getAttribute("src");
+  assert.ok(sharedMediaSource);
+  const sharedMedia = await context.request.get(new URL(sharedMediaSource, origin).href, { headers: { range: "bytes=0-1023" } });
+  assert.equal(sharedMedia.status(), 206);
+  await sharedPage.close();
   await assertAccessible(page, "finished local dub");
   await page.screenshot({ path: `${artifacts}/finished-desktop.png`, fullPage: true });
 
@@ -111,6 +129,32 @@ try {
   assert.equal(media.streams.find(({ codec_type }) => codec_type === "video")?.codec_name, "h264");
   assert.equal(media.streams.find(({ codec_type }) => codec_type === "audio")?.codec_name, "aac");
   assert.ok(Number(media.format.duration) >= 1 && Number(media.format.duration) <= 15.1);
+
+  const outputBytes = readFileSync(downloadPath);
+  const rejectedInit = await context.request.post(`${origin}/api/share-links`, {
+    headers: { origin },
+    data: { fileName: "rejected.mp4", contentType: "video/mp4", size: outputBytes.length, title: "Rejected test" }
+  });
+  assert.equal(rejectedInit.status(), 201);
+  const rejectedTarget = await rejectedInit.json();
+  const rejectedUpload = await context.request.put(new URL(rejectedTarget.uploadUrl, origin).href, {
+    headers: { origin, ...rejectedTarget.headers },
+    data: outputBytes
+  });
+  assert.equal(rejectedUpload.status(), 204);
+  const rejectedFinalize = await context.request.post(`${origin}/api/share-links/${rejectedTarget.id}/finalize`, {
+    headers: { origin },
+    data: { token: rejectedTarget.token, transcriptHint: "This is a bomb threat" }
+  });
+  assert.equal(rejectedFinalize.status(), 422);
+  assert.equal((await rejectedFinalize.json()).status, "rejected");
+  const rejectedMedia = await context.request.get(`${origin}/api/share-links/${rejectedTarget.id}/media`);
+  assert.equal(rejectedMedia.status(), 410);
+  const unauthorizedCleanup = await context.request.post(`${origin}/api/internal/share-links/cleanup`);
+  assert.equal(unauthorizedCleanup.status(), 401);
+  const cleanup = await context.request.post(`${origin}/api/internal/share-links/cleanup`, { headers: { authorization: "Bearer phase-2-e2e-cleanup-secret" } });
+  assert.equal(cleanup.status(), 200);
+
   assert.equal(externalRequests.length, 0, `Unexpected external requests: ${externalRequests.join(", ")}`);
 
   await page.setViewportSize({ width: 390, height: 844 });
