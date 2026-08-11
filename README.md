@@ -1,14 +1,45 @@
 # StealMyScene
 
+> Pick a scene. Say the line. Steal the scene.
+
 ![StealMyScene theatrical dubbing product preview](./public/brand/stealmyscene-product-preview.png)
 
-*Product vision artwork — pick a scene, perform the line, and make the moment yours.*
+StealMyScene is a browser-first dubbing experience built for fast, funny performances. Choose a short original scene, follow the timed line, record your voice, preview your take, and download the finished MP4.
 
-StealMyScene is a browser-first dubbing toy: choose a short original scene, follow its timed line, record a performance, preview it, and render a downloadable MP4 locally—without signup or an upload in the Phase 1 guest flow.
+No signup. No forced upload. Unlimited retakes.
 
-## Local development
+## The experience
 
-Requirements: Node.js 20.9 or newer and FFmpeg 6 or newer (FFmpeg is only required when regenerating the original scene library or running the admin ingestion worker).
+1. **Pick a scene** from the original, rights-cleared catalog.
+2. **Perform the line** while the transcript follows the scene timing.
+3. **Preview your take** with instant playback and unlimited retries.
+4. **Render locally** in the browser and download a finished video.
+
+## What makes it different
+
+- **Fast start:** The complete guest flow works without an account.
+- **Private by default:** Voice recordings stay on the device during the Phase 1 flow.
+- **Local rendering:** FFmpeg runs in the browser and produces an H.264/AAC MP4.
+- **Performance guidance:** Countdown, waveform, timer, and word-level cues keep the take synchronized.
+- **Responsive design:** The full experience supports desktop and mobile layouts.
+- **Rights-aware publishing:** Internal ingestion blocks scenes until ownership or licensing evidence is recorded.
+
+## What is included
+
+| Area | Included capability |
+|---|---|
+| Public experience | Homepage, Explore, Trending, How It Works, scene pages, and dubbing studio |
+| Dubbing studio | Microphone capture, timed recording, preview, retake, local render, and download |
+| Scene catalog | 24 original scenes with versioned media, thumbnails, transcripts, and word timing |
+| Admin workflow | Upload, trim, transcription review, metadata, rights review, and publishing |
+| Quality gates | Strict TypeScript, linting, automated tests, browser checks, accessibility scans, and production builds |
+
+## Run locally
+
+Requirements:
+
+- Node.js 20.9 or newer
+- FFmpeg 6 or newer for rebuilding the scene library and processing admin uploads
 
 ```bash
 npm install
@@ -16,30 +47,45 @@ cp .env.example .env.local
 npm run dev
 ```
 
-Open `http://localhost:3000`. The public guest experience works without environment secrets. Admin authentication and S3/R2 ingestion require the values documented in `.env.example`.
+Open [http://localhost:3000](http://localhost:3000).
 
-The internal ingestion desk is at `/admin/scenes`. Local development uses `var/` for quarantined, accepted, and processed media. Production should use `STORAGE_DRIVER=s3`, configure the object-created validator described in [`infra/storage-trigger/README.md`](./infra/storage-trigger/README.md), and provide a deploy rebuild hook so newly published immutable assets and the versioned manifest become active.
+The public guest experience works without environment secrets. Admin authentication and S3/R2 ingestion use the values documented in [`.env.example`](./.env.example).
 
-Set `ENABLE_HSTS=true` only on the real HTTPS deployment. It is intentionally off for local HTTP because HSTS would make WebKit upgrade local CSS and media requests to HTTPS.
+## Production configuration
 
-## Verification
+The internal ingestion desk is available at `/admin/scenes`. Local development stores quarantined, accepted, and processed media under `var/`.
+
+A production environment should provide:
+
+- Strong `ADMIN_PASSWORD` and `ADMIN_SESSION_SECRET` values
+- S3 or Cloudflare R2 storage with CDN delivery
+- The object validation worker described in [`infra/storage-trigger/README.md`](./infra/storage-trigger/README.md)
+- A production transcription command and model
+- A `REBUILD_HOOK_URL` that activates newly published assets
+- Real HTTPS with `ENABLE_HSTS=true`
+
+Keep `ENABLE_HSTS=false` during local HTTP development.
+
+## Verify the project
 
 ```bash
 npm run verify
 ```
 
-This runs linting, strict TypeScript checks, automated tests, and a production build.
+This runs linting, strict TypeScript checks, automated tests, and a complete production build.
 
-Phase 1's browser, accessibility, privacy, media, admin, and deployment evidence is recorded in [`docs/PHASE_1_VERIFICATION.md`](./docs/PHASE_1_VERIFICATION.md).
+The detailed Phase 1 browser, accessibility, privacy, media, admin, and security evidence is recorded in [`docs/PHASE_1_VERIFICATION.md`](./docs/PHASE_1_VERIFICATION.md).
 
-To deterministically regenerate the 24 original, rights-cleared gradient scenes and their manifest:
+To rebuild the 24-scene original catalog and manifest:
 
 ```bash
 npm run generate:scenes
 ```
 
-## Project controls
+## Roadmap and project records
 
-- [`StealMyScene_Complete_Plan.md`](./StealMyScene_Complete_Plan.md) is the canonical scope.
-- [`PROJECT_PROGRESS.md`](./PROJECT_PROGRESS.md) is the live delivery and evidence ledger.
-- [`ENGINEERING_EXECUTION_RULES.md`](./ENGINEERING_EXECUTION_RULES.md) defines build, testing, commit, push, and mistake-prevention rules.
+The complete guest loop is implemented and verified. The remaining Phase 1 exit signal requires representative real-user traffic before Phase 2 is officially unlocked.
+
+- [`StealMyScene_Complete_Plan.md`](./StealMyScene_Complete_Plan.md) defines the complete product roadmap.
+- [`PROJECT_PROGRESS.md`](./PROJECT_PROGRESS.md) tracks every phase, acceptance gate, and delivery commit.
+- [`ENGINEERING_EXECUTION_RULES.md`](./ENGINEERING_EXECUTION_RULES.md) defines testing, commit, push, security, and mistake-prevention rules.
