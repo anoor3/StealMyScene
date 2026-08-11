@@ -7,6 +7,7 @@ import { BrandLogo } from "@/components/brand-logo";
 
 const links = [
   ["Explore", "/explore"],
+  ["Create", "/create"],
   ["Trending", "/trending"],
   ["How it works", "/how-it-works"]
 ] as const;
@@ -44,8 +45,8 @@ export function Navigation() {
           </Link>
         ))}
       </nav>
-      <Link className="button button--compact header-cta" href="/explore">
-        {isHome ? "Try it now" : "Start dubbing"} <span aria-hidden="true">ϟ</span>
+      <Link className="button button--compact header-cta" href="/create">
+        {isHome ? "Try it now" : "Dub your video"} <span aria-hidden="true">ϟ</span>
       </Link>
     </header>
   );

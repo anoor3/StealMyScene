@@ -13,7 +13,14 @@ function stopStream(stream?: MediaStream | null) {
   stream?.getTracks().forEach((track) => track.stop());
 }
 
-export function DubStudio({ scene }: { scene: Scene }) {
+type DubStudioProps = {
+  scene: Scene;
+  sourceClip?: { start: number; duration: number; reencodeVideo?: boolean };
+  sourcePoster?: string | null;
+  onExit?: () => void;
+};
+
+export function DubStudio({ scene, sourceClip, sourcePoster, onExit }: DubStudioProps) {
   const [state, dispatch] = useReducer(studioReducer, initialStudioState);
   const [recording, setRecording] = useState<Blob>();
   const [recordingUrl, setRecordingUrl] = useState<string>();
@@ -26,9 +33,12 @@ export function DubStudio({ scene }: { scene: Scene }) {
   const streamRef = useRef<MediaStream | null>(null);
   const audioContextRef = useRef<AudioContext | null>(null);
   const stopTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const previewTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const clipStart = sourceClip?.start ?? 0;
 
   const cleanCapture = useCallback(() => {
     if (stopTimerRef.current) clearTimeout(stopTimerRef.current);
+    if (previewTimerRef.current) clearTimeout(previewTimerRef.current);
     stopStream(streamRef.current);
     streamRef.current = null;
     recorderRef.current = null;
@@ -70,11 +80,11 @@ export function DubStudio({ scene }: { scene: Scene }) {
   const trackRecordingTime = useCallback(() => {
     const video = videoRef.current;
     if (!video) return;
-    const time = Math.min(video.currentTime, scene.duration);
+    const time = Math.min(Math.max(0, video.currentTime - clipStart), scene.duration);
     dispatch({ type: "TICK", elapsed: time });
     setActiveWord(activeWordIndex(scene.wordTimings, time));
     if (time >= scene.duration - 0.02) stopRecording();
-  }, [scene.duration, scene.wordTimings, stopRecording]);
+  }, [clipStart, scene.duration, scene.wordTimings, stopRecording]);
 
   async function startRecording() {
     dispatch({ type: "REQUEST_PERMISSION" });
@@ -139,7 +149,7 @@ export function DubStudio({ scene }: { scene: Scene }) {
       const video = videoRef.current;
       if (!video) throw new Error("The scene player is unavailable.");
       video.pause();
-      video.currentTime = 0;
+      video.currentTime = clipStart;
       video.muted = true;
       recorder.start(250);
       dispatch({ type: "START_RECORDING" });
@@ -161,10 +171,14 @@ export function DubStudio({ scene }: { scene: Scene }) {
     if (!video || !audio || !recordingUrl) return;
     video.pause();
     audio.pause();
-    video.currentTime = 0;
+    video.currentTime = clipStart;
     audio.currentTime = 0;
     video.muted = true;
     await Promise.all([video.play(), audio.play()]);
+    previewTimerRef.current = setTimeout(() => {
+      video.pause();
+      audio.pause();
+    }, (scene.duration + 0.1) * 1000);
     analytics.track("preview_start", { sceneId: scene.id });
   }
 
@@ -184,6 +198,7 @@ export function DubStudio({ scene }: { scene: Scene }) {
       const output = await renderDub({
         videoUrl: scene.videoUrl,
         recording,
+        sourceClip,
         onProgress: (value) => dispatch({ type: "PROGRESS", value })
       });
       setResultUrl(URL.createObjectURL(output));
@@ -227,7 +242,9 @@ export function DubStudio({ scene }: { scene: Scene }) {
   return (
     <div className="studio shell">
       <header className="studio__header">
-        <Link className="back-link" href={`/scene/${scene.slug}`}>← Back to scene</Link>
+        {onExit
+          ? <button className="back-link back-link--button" type="button" onClick={onExit}>← Change video</button>
+          : <Link className="back-link" href={`/scene/${scene.slug}`}>← Back to scene</Link>}
         <div><span className="eyebrow">Dub studio</span><h1>{scene.title}</h1></div>
         <span className="local-badge">⌁ Local only</span>
       </header>
@@ -240,7 +257,7 @@ export function DubStudio({ scene }: { scene: Scene }) {
             <video
               ref={videoRef}
               src={scene.videoUrl}
-              poster={scene.thumbnailUrl}
+              poster={sourcePoster === null ? undefined : sourcePoster ?? scene.thumbnailUrl}
               controls={state.status === "ready" || state.status === "recorded" || state.status === "error"}
               playsInline
               preload="auto"

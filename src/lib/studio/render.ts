@@ -28,11 +28,12 @@ async function getFFmpeg(): Promise<FFmpeg> {
 export type RenderOptions = {
   videoUrl: string;
   recording: Blob;
+  sourceClip?: { start: number; duration: number; reencodeVideo?: boolean };
   timeoutMs?: number;
   onProgress?: (progress: number) => void;
 };
 
-export async function renderDub({ videoUrl, recording, timeoutMs = 90_000, onProgress }: RenderOptions): Promise<Blob> {
+export async function renderDub({ videoUrl, recording, sourceClip, timeoutMs = 90_000, onProgress }: RenderOptions): Promise<Blob> {
   const engine = await getFFmpeg();
   const token = crypto.randomUUID();
   const videoName = `scene-${token}.mp4`;
@@ -45,13 +46,17 @@ export async function renderDub({ videoUrl, recording, timeoutMs = 90_000, onPro
     await engine.writeFile(videoName, await fetchFile(videoUrl));
     await engine.writeFile(audioName, await fetchFile(recording));
     const exitCode = await engine.exec([
+      ...(sourceClip ? ["-ss", sourceClip.start.toFixed(3), "-t", sourceClip.duration.toFixed(3)] : []),
       "-i", videoName,
       "-i", audioName,
       "-map", "0:v:0",
       "-map", "1:a:0",
-      "-c:v", "copy",
+      ...(sourceClip?.reencodeVideo
+        ? ["-c:v", "libx264", "-preset", "ultrafast", "-crf", "23", "-pix_fmt", "yuv420p"]
+        : ["-c:v", "copy"]),
       "-c:a", "aac",
       "-b:a", "160k",
+      ...(sourceClip ? ["-t", sourceClip.duration.toFixed(3)] : []),
       "-shortest",
       "-movflags", "+faststart",
       outputName

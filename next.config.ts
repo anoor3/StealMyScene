@@ -22,7 +22,7 @@ const securityHeaders = [
       "img-src 'self' data: blob:",
       "media-src 'self' blob:",
       "worker-src 'self' blob:",
-      "connect-src 'self'",
+      "connect-src 'self' blob:",
       "font-src 'self'",
       "object-src 'none'",
       "base-uri 'self'",
