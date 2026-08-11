@@ -4,7 +4,6 @@ import {
   CreateMultipartUploadCommand,
   GetObjectCommand,
   PutObjectCommand,
-  S3Client,
   UploadPartCommand
 } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
@@ -12,6 +11,7 @@ import { randomUUID } from "node:crypto";
 import { createReadStream, createWriteStream, readFileSync } from "node:fs";
 import { Readable } from "node:stream";
 import { pipeline } from "node:stream/promises";
+import { objectStorageConfig } from "@/lib/storage/s3";
 import { extensionForUpload, type PresignUpload } from "./upload-schema";
 
 const MULTIPART_THRESHOLD = 10 * 1024 * 1024;
@@ -19,22 +19,6 @@ const PART_SIZE = 8 * 1024 * 1024;
 
 export function storageDriver() {
   return process.env.STORAGE_DRIVER === "s3" ? "s3" : "local";
-}
-
-function s3Config() {
-  const bucket = process.env.S3_BUCKET;
-  const accessKeyId = process.env.S3_ACCESS_KEY_ID;
-  const secretAccessKey = process.env.S3_SECRET_ACCESS_KEY;
-  if (!bucket || !accessKeyId || !secretAccessKey) throw new Error("S3 storage is not fully configured");
-  return {
-    bucket,
-    client: new S3Client({
-      endpoint: process.env.S3_ENDPOINT || undefined,
-      region: process.env.S3_REGION || "auto",
-      forcePathStyle: Boolean(process.env.S3_ENDPOINT),
-      credentials: { accessKeyId, secretAccessKey }
-    })
-  };
 }
 
 export async function createUploadTarget(input: PresignUpload) {
@@ -45,7 +29,7 @@ export async function createUploadTarget(input: PresignUpload) {
     return { mode: "local" as const, key, url: `/api/admin/uploads/local?key=${encodeURIComponent(key)}`, headers: { "content-type": input.mimeType } };
   }
 
-  const { bucket, client } = s3Config();
+  const { bucket, client } = objectStorageConfig();
   if (input.size <= MULTIPART_THRESHOLD) {
     const command = new PutObjectCommand({
       Bucket: bucket,
@@ -79,7 +63,7 @@ export async function downloadUpload(key: string, targetPath: string) {
     const { localUploadPath } = await import("./local-upload");
     return { path: localUploadPath(key), temporary: false };
   }
-  const { bucket, client } = s3Config();
+  const { bucket, client } = objectStorageConfig();
   const object = await client.send(new GetObjectCommand({ Bucket: bucket, Key: key }));
   if (!object.Body) throw new Error("Uploaded source was not found");
   const webStream = object.Body.transformToWebStream();
@@ -89,7 +73,7 @@ export async function downloadUpload(key: string, targetPath: string) {
 
 export async function publishFile(localPath: string, key: string, contentType: string): Promise<string> {
   if (storageDriver() === "local") return `/${key}`;
-  const { bucket, client } = s3Config();
+  const { bucket, client } = objectStorageConfig();
   await client.send(new PutObjectCommand({
     Bucket: bucket,
     Key: key,
@@ -104,7 +88,7 @@ export async function publishFile(localPath: string, key: string, contentType: s
 
 export async function publishManifest(localPath: string) {
   if (storageDriver() === "local") return;
-  const { bucket, client } = s3Config();
+  const { bucket, client } = objectStorageConfig();
   await client.send(new PutObjectCommand({
     Bucket: bucket,
     Key: "data/scenes.json",
@@ -116,7 +100,7 @@ export async function publishManifest(localPath: string) {
 
 export async function completeMultipartUpload(input: { key: string; uploadId: string; parts: { partNumber: number; etag: string }[] }) {
   if (storageDriver() !== "s3") throw new Error("Multipart completion is only available with S3/R2 storage");
-  const { bucket, client } = s3Config();
+  const { bucket, client } = objectStorageConfig();
   await client.send(new CompleteMultipartUploadCommand({
     Bucket: bucket,
     Key: input.key,
