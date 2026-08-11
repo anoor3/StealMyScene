@@ -21,7 +21,7 @@ This is the live delivery ledger for [`StealMyScene_Complete_Plan.md`](./StealMy
 |---|---|---|---|---|
 | Phase 0 — Planning controls | Canonical scope, traceability, and execution rules are established. | Repository initialized. | All 16 plan sections mapped; progress and rules documents committed and pushed. | Complete |
 | Phase 1 — Prove the Loop | A guest can browse, record, preview, render, and download a rights-safe scene. | Phase 0 complete. | Measure second-scene dubbing; test toward the plan's 20–25% hypothesis before expanding scope. | Awaiting data |
-| Phase 2 — Shareable & Load-Proven | Outputs can be shared and the static/CDN architecture is demonstrated under load. | Phase 1 loop works and is instrumented. | p95 time-to-first-frame stays flat toward 100k simulated concurrency and CDN cache hit ratio remains roughly 95%+. | Not started |
+| Phase 2 — Shareable & Load-Proven | Users can dub local videos, outputs can be shared, and the static/CDN architecture is demonstrated under load. | Phase 1 loop works and is instrumented; P1-17 remains awaiting representative traffic by explicit recorded decision. | p95 time-to-first-frame stays flat toward 100k simulated concurrency and CDN cache hit ratio remains roughly 95%+. | In progress |
 | Phase 3 — Real Audio | User dialogue replaces dialogue while music and effects remain. | Stable ingestion and render paths. | Compare download/share performance against the Phase 1/2 flat-replacement baseline. | Not started |
 | Phase 4 — Identity & Retention | Optional accounts add saving, gallery, likes, and retention without blocking guests. | Core guest loop remains healthy. | Measure guest-to-account conversion and two-week retention improvement. | Not started |
 | Phase 5 — Scale, Partnerships & Monetization | The validated product expands into licensing, creator tools, native apps, embeds, and premium offerings. | Product loop and demand validated. | Continuous roadmap driven by demonstrated traffic and commercial evidence. | Not started |
@@ -64,6 +64,7 @@ This is the live delivery ledger for [`StealMyScene_Complete_Plan.md`](./StealMy
 
 | ID | Deliverable | Acceptance evidence | Status |
 |---|---|---|---|
+| P2-00 | Add a public local-only `Dub Your Own Video` flow while keeping authenticated admin ingestion as the only catalog publication path. | Drag/drop and picker, validation, trim, line timing, recording, preview, local render, download/share, cleanup, privacy networking, accessibility, and representative browser tests pass. | In progress |
 | P2-01 | Add Web Share API file sharing with capability detection and first-class download fallback. | Supported-device tests and unsupported-browser fallback tests pass. | Not started |
 | P2-02 | Add explicit optional `Get a link` flow for desktop/unsupported sharing. | Upload, pending, ready, rejection, expiration, and error states pass end to end. | Not started |
 | P2-03 | Moderate hosted link audio before publication and auto-expire links after the configured TTL (72 hours by default). | Transcription/filtering tests, abuse cases, and expiry deletion tests pass. | Not started |
@@ -75,7 +76,7 @@ This is the live delivery ledger for [`StealMyScene_Complete_Plan.md`](./StealMy
 | P2-09 | Run k6/Artillery spike and concurrency tests against pages and assets toward 100k virtual users. | Versioned report includes p50/p95/p99, error rate, cache hit ratio, and origin request behavior. | Not started |
 | P2-10 | Evaluate the Phase 2 exit signal. | p95 remains flat enough for the agreed SLO and CDN hit ratio is roughly 95%+; deviations have owned fixes. | Not started |
 
-**Explicit Phase 2 deferrals:** accounts, on-platform public gallery, and dialogue/background stem separation.
+**Explicit Phase 2 deferrals:** accounts, on-platform public gallery, dialogue/background stem separation, and public catalog submission. Public local uploads create private outputs only.
 
 ## Phase 3 — Real Audio
 
@@ -159,6 +160,7 @@ An implementation row is not `Complete` until all applicable evidence is present
 | 2026-08-10 | Defect | P1-14, P1-16 | Unconditional HSTS/CSP upgrading broke local HTTP assets in WebKit. | Enable transport upgrading only when `ENABLE_HSTS=true` on a real HTTPS deployment; WebKit E2E protects local compatibility. | Resolved |
 | 2026-08-10 | Defect | P1-05, P1-16 | One broad recording catch misclassified post-permission browser failures as microphone denial. | Isolate `getUserMedia` permission handling from recorder/playback setup failures and preserve specific recovery messages. | Resolved |
 | 2026-08-10 | Gate | P1-17 | Synthetic tests cannot establish whether 20–25% of real people dub a second scene. | Keep Phase 2 gated; collect representative anonymous sessions and record the denominator, numerator, rate, window, and decision here. | Awaiting data |
+| 2026-08-11 | Decision | P1-17, P2-00–P2-10 | The product owner explicitly prioritized Phase 2 implementation before deployment and requested a public local drag/drop dubbing flow. | Begin Phase 2 implementation without misrepresenting P1-17 or deployment/load evidence; keep public local uploads private and preserve admin-only publication. | Active |
 
 ## Delivery log
 

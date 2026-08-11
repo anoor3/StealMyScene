@@ -7,7 +7,7 @@ This document supersedes the scattered version — it's organized by **build pha
 
 > **Completeness contract:** This is the canonical product and engineering scope. No phase, requirement, safeguard, fallback, exit signal, or deliberately deferred item in this plan may be silently skipped. Every item must be tracked in [`PROJECT_PROGRESS.md`](./PROJECT_PROGRESS.md), and implementation must follow [`ENGINEERING_EXECUTION_RULES.md`](./ENGINEERING_EXECUTION_RULES.md). If reality requires a change, the change and its reason must be recorded in all affected documents before work proceeds; an item is never treated as complete merely because it was omitted from a build.
 
-**Current status (2026-08-10):** Phase 1 implementation and acceptance verification are complete. P1-17 remains explicitly awaiting real-user traffic because the 20–25% second-scene hypothesis cannot be truthfully evaluated from synthetic tests. Phase 2 remains gated until that live exit-signal review is recorded in [`PROJECT_PROGRESS.md`](./PROJECT_PROGRESS.md).
+**Current status (2026-08-11):** Phase 1 implementation and acceptance verification are complete. P1-17 remains explicitly awaiting real-user traffic because the 20–25% second-scene hypothesis cannot be truthfully evaluated from synthetic tests. The product owner has explicitly prioritized starting Phase 2 before deployment so the public local-upload loop can be completed and tested; this does not waive or complete P1-17, and deployment-dependent Phase 2 exit evidence remains gated.
 
 ---
 
@@ -121,6 +121,7 @@ Five phases, Phase 1 to what "end product" looks like. Each one has a single goa
 **Goal:** get the output off the device and prove the infrastructure actually holds under real concurrent traffic, not just in theory.
 
 **Ships**
+- A public **"Dub Your Own Video"** route: drag or choose a local MP4/MOV/WebM, validate it, trim a short segment, enter the replacement line, record with the established studio flow, and download or share the local result. Quick mode keeps source bytes and the user's recording on-device. It never publishes to the catalog and remains separate from authenticated admin ingestion.
 - Native **Web Share API** integration — the rendered file attaches directly to the OS share sheet (TikTok, Instagram, WhatsApp, Messages) with no upload involved, on the platforms that support it
 - An explicit, optional **"Get a link"** action for the cases native share can't cover (mainly desktop). This is the one place Phase 2 intentionally reintroduces a server write — see the moderation note below
 - Library grows to roughly 75–150 scenes; the trending formula goes live: `recent dubs + shares + views + completion rate + velocity`, weighted toward recent activity so old clips don't dominate forever
@@ -129,7 +130,7 @@ Five phases, Phase 1 to what "end product" looks like. Each one has a single goa
 
 **The moderation note:** local-only export is low-stakes — a user privately saving or sharing a file they made is no different from screen-recording anything else. The moment "Get a link" exists, StealMyScene is *hosting and serving* user-generated audio from its own domain, which is a materially different exposure. The mitigation is cheap because the infrastructure already exists by this phase: run the same transcription pipeline used for admin content over the user's recording before the link goes live, hold it in a brief pending state, auto-reject on an obvious keyword/hate-speech match, and auto-expire every link (72 hours is a reasonable default) so nothing lingers indefinitely.
 
-**Deliberately deferred:** accounts, an on-platform public gallery, stem separation
+**Deliberately deferred:** accounts, an on-platform public gallery, stem separation, and public catalog submission. The local-upload route creates a private output only; creator publishing remains Phase 5 scope.
 
 **Exit signal:** p95 time-to-first-frame on scene pages stays flat as simulated concurrent load rises toward 100k, and CDN cache hit ratio holds above roughly 95%. If either degrades, that's a caching or fan-out problem to fix before adding features.
 
