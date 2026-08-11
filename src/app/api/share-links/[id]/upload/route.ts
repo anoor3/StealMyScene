@@ -2,11 +2,13 @@ import { NextResponse } from "next/server";
 import { isSameOrigin } from "@/lib/admin/auth";
 import { shareIdSchema } from "@/lib/shares/schema";
 import { saveLocalShareUpload } from "@/lib/shares/storage";
+import { checkRateLimit, requestFingerprint } from "@/lib/security/rate-limit";
 
 export const runtime = "nodejs";
 
 export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
   if (!isSameOrigin(request)) return NextResponse.json({ error: "Invalid request origin" }, { status: 403 });
+  if (!(await checkRateLimit(`share-upload:${requestFingerprint(request)}`, 10, 10 * 60_000))) return NextResponse.json({ error: "Too many requests" }, { status: 429 });
   if (!request.body) return NextResponse.json({ error: "Upload body is required" }, { status: 400 });
   const id = shareIdSchema.safeParse((await params).id);
   if (!id.success) return NextResponse.json({ error: "Unknown temporary link" }, { status: 404 });

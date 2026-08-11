@@ -4,10 +4,12 @@ import { NextResponse } from "next/server";
 import { parseByteRange } from "@/lib/http/byte-range";
 import { shareIdSchema } from "@/lib/shares/schema";
 import { enforceShareExpiry, localShareMediaPath, readShareRecord, shareMediaUrl, shareStorageDriver } from "@/lib/shares/storage";
+import { checkRateLimit, requestFingerprint } from "@/lib/security/rate-limit";
 
 export const runtime = "nodejs";
 
 export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  if (!(await checkRateLimit(`share-media:${requestFingerprint(request)}`, 240, 60_000))) return NextResponse.json({ error: "Too many requests" }, { status: 429 });
   const id = shareIdSchema.safeParse((await params).id);
   if (!id.success) return NextResponse.json({ error: "Temporary link not found" }, { status: 404 });
   let total = 0;

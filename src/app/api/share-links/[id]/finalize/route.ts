@@ -9,7 +9,7 @@ export const maxDuration = 300;
 
 export async function POST(request: Request, { params }: { params: Promise<{ id: string }> }) {
   if (!isSameOrigin(request)) return NextResponse.json({ error: "Invalid request origin" }, { status: 403 });
-  if (!checkRateLimit(`share-finalize:${requestFingerprint(request)}`, 10, 10 * 60_000)) return NextResponse.json({ error: "Too many requests" }, { status: 429 });
+  if (!(await checkRateLimit(`share-finalize:${requestFingerprint(request)}`, 10, 10 * 60_000))) return NextResponse.json({ error: "Too many requests" }, { status: 429 });
   const id = shareIdSchema.safeParse((await params).id);
   const body = finalizeShareSchema.safeParse(await request.json().catch(() => null));
   if (!id.success || !body.success) return NextResponse.json({ error: "Invalid finalization request" }, { status: 400 });

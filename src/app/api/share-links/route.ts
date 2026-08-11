@@ -9,7 +9,7 @@ export const runtime = "nodejs";
 
 export async function POST(request: Request) {
   if (!isSameOrigin(request)) return NextResponse.json({ error: "Invalid request origin" }, { status: 403 });
-  if (!checkRateLimit(`share-create:${requestFingerprint(request)}`, 5, 10 * 60_000)) {
+  if (!(await checkRateLimit(`share-create:${requestFingerprint(request)}`, 5, 10 * 60_000))) {
     return NextResponse.json({ error: "Too many temporary links. Try again later." }, { status: 429 });
   }
   const parsed = createShareSchema.safeParse(await request.json().catch(() => null));

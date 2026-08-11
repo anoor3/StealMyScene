@@ -9,7 +9,7 @@ const loginSchema = z.object({ password: z.string().min(1).max(500) });
 export async function POST(request: Request) {
   if (!isSameOrigin(request)) return NextResponse.json({ error: "Invalid request origin" }, { status: 403 });
   const fingerprint = requestFingerprint(request);
-  if (!checkRateLimit(`admin-login:${fingerprint}`, 5, 15 * 60_000)) {
+  if (!(await checkRateLimit(`admin-login:${fingerprint}`, 5, 15 * 60_000))) {
     return NextResponse.json({ error: "Too many login attempts. Try again later." }, { status: 429 });
   }
 
