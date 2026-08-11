@@ -44,6 +44,10 @@ try {
   const context = await browser.newContext({ acceptDownloads: true, permissions: ["microphone"], viewport: { width: 1440, height: 1000 } });
   const page = await context.newPage();
   await page.addInitScript(() => {
+    Object.defineProperties(navigator, {
+      canShare: { configurable: true, value: ({ files }) => Array.isArray(files) && files.length === 1 },
+      share: { configurable: true, value: async ({ files }) => { globalThis.__smsSharedFile = files?.[0]?.name; } }
+    });
     navigator.mediaDevices.getUserMedia = async () => {
       const audioContext = new AudioContext();
       const oscillator = audioContext.createOscillator();
@@ -88,6 +92,8 @@ try {
   await page.getByRole("button", { name: "Create my scene" }).waitFor({ timeout: 20_000 });
   await page.getByRole("button", { name: "Create my scene" }).click();
   await page.getByRole("button", { name: "Download MP4" }).waitFor({ timeout: 120_000 });
+  await page.getByRole("button", { name: "Share scene" }).click();
+  assert.equal(await page.evaluate(() => globalThis.__smsSharedFile), "steal-my-scene-your-video.mp4");
   await assertAccessible(page, "finished local dub");
   await page.screenshot({ path: `${artifacts}/finished-desktop.png`, fullPage: true });
 

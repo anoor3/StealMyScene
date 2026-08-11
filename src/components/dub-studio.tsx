@@ -6,6 +6,7 @@ import { analytics } from "@/lib/analytics/client";
 import type { Scene } from "@/lib/scenes/schema";
 import { activeWordIndex, microphoneErrorMessage, selectRecordingMimeType } from "@/lib/studio/media";
 import { renderDub } from "@/lib/studio/render";
+import { canShareDubFile, createDubFile, shareDubFile } from "@/lib/studio/share";
 import { initialStudioState, studioReducer } from "@/lib/studio/state";
 import { Waveform } from "./waveform";
 
@@ -25,6 +26,8 @@ export function DubStudio({ scene, sourceClip, sourcePoster, onExit }: DubStudio
   const [recording, setRecording] = useState<Blob>();
   const [recordingUrl, setRecordingUrl] = useState<string>();
   const [resultUrl, setResultUrl] = useState<string>();
+  const [result, setResult] = useState<Blob>();
+  const [shareMessage, setShareMessage] = useState<string>();
   const [analyser, setAnalyser] = useState<AnalyserNode>();
   const [activeWord, setActiveWord] = useState(-1);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -35,6 +38,9 @@ export function DubStudio({ scene, sourceClip, sourcePoster, onExit }: DubStudio
   const stopTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const previewTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const clipStart = sourceClip?.start ?? 0;
+  const filename = `steal-my-scene-${scene.slug}.mp4`;
+  const shareFile = useMemo(() => result ? createDubFile(result, filename) : undefined, [filename, result]);
+  const shareAvailable = canShareDubFile(shareFile);
 
   const cleanCapture = useCallback(() => {
     if (stopTimerRef.current) clearTimeout(stopTimerRef.current);
@@ -69,6 +75,8 @@ export function DubStudio({ scene, sourceClip, sourcePoster, onExit }: DubStudio
       if (url) URL.revokeObjectURL(url);
       return undefined;
     });
+    setResult(undefined);
+    setShareMessage(undefined);
     setActiveWord(-1);
   }, []);
 
@@ -201,6 +209,7 @@ export function DubStudio({ scene, sourceClip, sourcePoster, onExit }: DubStudio
         sourceClip,
         onProgress: (value) => dispatch({ type: "PROGRESS", value })
       });
+      setResult(output);
       setResultUrl(URL.createObjectURL(output));
       dispatch({ type: "FINISH" });
       analytics.track("render_finish", { sceneId: scene.id, bytes: output.size });
@@ -214,13 +223,27 @@ export function DubStudio({ scene, sourceClip, sourcePoster, onExit }: DubStudio
     if (!resultUrl) return;
     const link = document.createElement("a");
     link.href = resultUrl;
-    link.download = `steal-my-scene-${scene.slug}.mp4`;
+    link.download = filename;
     link.rel = "noopener";
     link.click();
     analytics.track("download", { sceneId: scene.id });
     const completed = Number(sessionStorage.getItem("sms_completed_dubs") ?? "0") + 1;
     sessionStorage.setItem("sms_completed_dubs", String(completed));
     if (completed === 2) analytics.track("second_scene_dub", { sceneId: scene.id });
+  }
+
+  async function share() {
+    if (!shareFile) return;
+    setShareMessage(undefined);
+    try {
+      const outcome = await shareDubFile(shareFile, `${scene.title} · StealMyScene`);
+      if (outcome === "shared") {
+        setShareMessage("Shared from your device.");
+        analytics.track("share", { sceneId: scene.id, method: "native_file" });
+      }
+    } catch (error) {
+      setShareMessage(error instanceof Error ? error.message : "Sharing failed. Download the MP4 instead.");
+    }
   }
 
   const statusLabel = useMemo(() => {
@@ -324,7 +347,10 @@ export function DubStudio({ scene, sourceClip, sourcePoster, onExit }: DubStudio
 
           {state.status === "finished" && (
             <div className="control-stack">
-              <button className="button button--full" type="button" onClick={download}>↓ Download MP4</button>
+              {shareAvailable && <button className="button button--full" type="button" onClick={() => void share()}>↗ Share scene</button>}
+              <button className={shareAvailable ? "button button--secondary button--full" : "button button--full"} type="button" onClick={download}>↓ Download MP4</button>
+              {!shareAvailable && <p className="share-note">File sharing is not available here. Your MP4 download still works.</p>}
+              {shareMessage && <p className="share-note" role="status">{shareMessage}</p>}
               <button className="quiet-button" type="button" onClick={retake}>↻ Record another take</button>
               <Link className="quiet-button" href="/explore">Try another scene →</Link>
             </div>

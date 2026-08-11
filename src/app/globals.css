@@ -309,6 +309,7 @@ img, video { display: block; max-width: 100%; }
 .recording-time strong { font-variant-numeric: tabular-nums; }
 .waveform { background: #100c12; border: 1px solid var(--line); height: 76px; margin-bottom: 1rem; width: 100%; }
 .control-stack { display: grid; gap: .7rem; margin-block: 1.5rem; }
+.share-note { color: var(--muted); font-size: .72rem; margin: 0; text-align: center; }
 .button--full { width: 100%; }
 .quiet-button { background: transparent; border: 0; color: var(--muted); cursor: pointer; display: block; font-size: .78rem; padding: .6rem; text-align: center; width: 100%; }
 .quiet-button:hover { color: var(--ink); }

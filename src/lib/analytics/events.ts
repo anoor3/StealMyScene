@@ -8,6 +8,7 @@ export const analyticsEventNameSchema = z.enum([
   "preview_start",
   "retake",
   "render_finish",
+  "share",
   "download",
   "second_scene_dub"
 ]);
