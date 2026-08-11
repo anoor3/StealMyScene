@@ -74,8 +74,8 @@ This is the live delivery ledger for [`StealMyScene_Complete_Plan.md`](./StealMy
 | P2-06 | Add anonymous batched fire-and-forget analytics that never blocks the user loop. | Client test proves no request occurs on the event call path; capped retry, stable batch IDs, page-exit behavior, loss limits, privacy, and storage are documented and tested. | Complete |
 | P2-07 | Add stateless, horizontally scalable public APIs only where required, with rate limiting. | Shared object storage removes instance affinity; authenticated atomic limiter contract denies closed; endpoint coverage, failure tests, architecture review, and 2,000-request origin smoke pass. | Complete |
 | P2-08 | Implement the serverless FFmpeg fallback for failed, timed-out, or unsupported client renders. | Unit/integration and forced HTTP browser tests yield synchronized H.264/AAC output, explicit upload consent, normal cleanup, and abandoned-job expiry cleanup. | Complete |
-| P2-09 | Run k6/Artillery spike and concurrency tests against pages and assets toward 100k virtual users. | k6 spike workload, thresholds, cache/origin metrics, instructions, and local report exist; deployed CDN run toward 100k is still required. | Awaiting deployment |
-| P2-10 | Evaluate the Phase 2 exit signal. | Requires the deployed report to show sufficiently flat p95 and roughly 95%+ CDN hits with controlled origin fan-out. | Awaiting deployment |
+| P2-09 | Run k6/Artillery spike and concurrency tests against pages and assets toward 100k virtual users. | k6 spike workload, strict cache/origin metrics, separate real-browser first-frame probe, thresholds, instructions, and local report exist; deployed CDN run toward 100k is still required. | Awaiting deployment |
+| P2-10 | Evaluate the Phase 2 exit signal. | Requires deployed HTTP and browser reports to show sufficiently flat first-frame p95 and roughly 95%+ CDN hits with controlled origin fan-out. | Awaiting deployment |
 
 **Explicit Phase 2 deferrals:** accounts, on-platform public gallery, dialogue/background stem separation, and public catalog submission. Public local uploads create private outputs only.
 

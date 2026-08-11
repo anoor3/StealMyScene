@@ -45,6 +45,7 @@ function cacheState(response) {
   const hit = value.includes("HIT") || value.includes("STALE") || Number(response.headers.Age || 0) > 0;
   const miss = value.includes("MISS") || value.includes("BYPASS") || value.includes("DYNAMIC");
   if (hit || miss) cacheHits.add(hit);
+  else if (requireCdn) cacheHits.add(false);
   if (miss) originResponses.add(1);
 }
 
