@@ -3,10 +3,10 @@ import { getCategories, getPublishedScenes, getRelatedScenes, getSceneBySlug } f
 import { sceneSchema } from "./schema";
 
 describe("scene catalog", () => {
-  it("contains 20–30 valid, published, rights-safe scenes", () => {
+  it("contains the Phase 2 target of 75–150 valid, published, rights-safe scenes", () => {
     const scenes = getPublishedScenes();
-    expect(scenes.length).toBeGreaterThanOrEqual(20);
-    expect(scenes.length).toBeLessThanOrEqual(30);
+    expect(scenes.length).toBeGreaterThanOrEqual(75);
+    expect(scenes.length).toBeLessThanOrEqual(150);
     for (const scene of scenes) {
       expect(() => sceneSchema.parse(scene)).not.toThrow();
       expect(["cleared", "licensed"]).toContain(scene.rightsStatus);

@@ -1,5 +1,5 @@
 import { execFileSync } from "node:child_process";
-import { mkdirSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -31,7 +31,58 @@ const prompts = [
   ["coffee-prophecy", "Coffee Prophecy", "The mug is empty, so the prophecy is unclear.", "Drama", "#ffbe0b", "#3b2b00"],
   ["doorbell-panic", "Doorbell Panic", "Nobody move, maybe the delivery will forget us.", "Everyday", "#00f5d4", "#003832"],
   ["password-ritual", "Password Ritual", "One uppercase rune, two numbers, and my first memory.", "Mystery", "#b5179e", "#35042f"],
-  ["final-tab", "The Final Tab", "I closed one browser tab and discovered inner peace.", "Everyday", "#4cc9f0", "#092f3b"]
+  ["final-tab", "The Final Tab", "I closed one browser tab and discovered inner peace.", "Everyday", "#4cc9f0", "#092f3b"],
+  ["remote-control", "Remote Control Treaty", "We can negotiate, but the volume button stays with me.", "Comedy", "#ff477e", "#350818"],
+  ["grocery-plot", "Grocery Store Plot", "I came for milk and somehow joined a conspiracy.", "Mystery", "#06d6a0", "#06382d"],
+  ["rainy-alibi", "The Rainy Alibi", "The forecast said sunshine, so clearly this is personal.", "Drama", "#4895ef", "#091d3d"],
+  ["suspicious-calendar", "Suspicious Calendar", "Friday disappeared, and I would like an investigation.", "Work", "#f72585", "#3b0826"],
+  ["chair-squeak", "The Chair Confession", "That sound was the chair, and the chair knows it.", "Awkward", "#b5179e", "#33052e"],
+  ["midnight-snack", "Midnight Snack Mission", "Stay quiet, the refrigerator has excellent hearing.", "Everyday", "#ffd166", "#3c2b04"],
+  ["printer-rebellion", "Printer Rebellion", "It can smell urgency, and that only makes it stronger.", "Work", "#ef476f", "#3a0918"],
+  ["weather-app", "Weather App Betrayal", "You promised light clouds, not an aquatic emergency.", "Chaos", "#00b4d8", "#052d3b"],
+  ["mystery-sock", "The Mystery Sock", "One sock returned, but it refuses to answer questions.", "Mystery", "#9b5de5", "#261143"],
+  ["traffic-light", "Traffic Light Monologue", "We have been red for three chapters of my life.", "Drama", "#e63946", "#36070c"],
+  ["vacuum-duel", "Vacuum Duel", "This floor is not big enough for both of us.", "Comedy", "#ff9f1c", "#402402"],
+  ["typo-apology", "The Typo Apology", "I meant regards, not revenge, and I can explain.", "Work", "#4361ee", "#101744"],
+  ["queue-philosopher", "Queue Philosopher", "Perhaps the real checkout was the patience we lost.", "Everyday", "#2ec4b6", "#07332f"],
+  ["leftovers-treaty", "Leftovers Treaty", "You had three days, the noodles belong to history now.", "Comedy", "#fb8500", "#3c1e02"],
+  ["ringtone-trial", "Ringtone on Trial", "The courtroom recognizes that was not my chosen sound.", "Awkward", "#8338ec", "#220641"],
+  ["missing-keys", "The Missing Keys", "Everybody remain calm and check the door again.", "Mystery", "#52b788", "#0a2d20"],
+  ["toaster-warning", "Toaster Warning", "The smoke alarm is being extremely dramatic about breakfast.", "Chaos", "#ff6b35", "#3d1605"],
+  ["virtual-background", "Background Malfunction", "Please ignore the tropical beach attacking my outline.", "Work", "#3a86ff", "#091d42"],
+  ["elevator-button", "Elevator Button", "Pressing it twelve times tells the elevator we mean business.", "Everyday", "#00f5d4", "#063d36"],
+  ["cereal-dinner", "Cereal for Dinner", "This is not giving up, this is culinary efficiency.", "Comedy", "#ffbe0b", "#3c2b01"],
+  ["package-neighbor", "The Neighbor's Package", "I am only guarding it, with suspicious dedication.", "Mystery", "#118ab2", "#072e3c"],
+  ["autocorrect-betrayal", "Autocorrect Betrayal", "My phone has issued a statement I do not support.", "Chaos", "#e71d36", "#38060d"],
+  ["umbrella-inspector", "Umbrella Inspector", "This umbrella has one job and several creative interpretations.", "Everyday", "#4cc9f0", "#0b3341"],
+  ["meeting-microphone", "Microphone Still On", "That was valuable feedback intended for a much smaller audience.", "Work", "#7b2cbf", "#1d0835"],
+  ["frozen-pizza", "Frozen Pizza Summit", "The instructions say twelve minutes, but destiny says ten.", "Comedy", "#ff4d6d", "#3b0a18"],
+  ["hallway-encounter", "Hallway Encounter", "We both chose the same direction four times, so this is destiny.", "Awkward", "#06d6a0", "#06382d"],
+  ["calendar-invite", "Calendar Ambush", "An invite without context is just a digital threat.", "Work", "#f72585", "#3d0625"],
+  ["dog-excuse", "The Dog's Excuse", "He looks innocent, which is exactly what worries me.", "Mystery", "#80ed99", "#153721"],
+  ["grocery-bag", "One Trip Only", "We make one trip, even if the bags claim otherwise.", "Drama", "#ef476f", "#3a0817"],
+  ["coffee-machine", "Coffee Machine Negotiation", "I pressed every button, now we wait for diplomacy.", "Work", "#9b5de5", "#241041"],
+  ["wrong-number", "The Wrong Number", "You have the wrong person, but I am invested now.", "Awkward", "#00b4d8", "#042d3b"],
+  ["suitcase-drama", "Suitcase Drama", "If it closes, it counts as organized.", "Chaos", "#fb8500", "#3b1d01"],
+  ["office-thermostat", "Thermostat Cold War", "Someone moved it one degree, and peace has ended.", "Work", "#4361ee", "#0c1741"],
+  ["sandwich-heist", "Sandwich Heist", "I labeled it clearly, which means this was planned.", "Mystery", "#ffd166", "#3c2b03"],
+  ["silent-notification", "Silent Notification", "My phone said nothing, but somehow I felt judged.", "Everyday", "#b5179e", "#35052f"],
+  ["robot-vacuum", "Robot Vacuum Uprising", "It has mapped the house and now knows too much.", "Chaos", "#2ec4b6", "#07332f"],
+  ["weekend-plan", "Weekend Plan", "My schedule is completely open and emotionally unavailable.", "Comedy", "#ff477e", "#380818"],
+  ["recipe-substitution", "Recipe Substitution", "I replaced one ingredient and accidentally invented weather.", "Chaos", "#ff6b35", "#3d1504"],
+  ["parking-ticket", "Parking Ticket Speech", "This paper and I remember the signs very differently.", "Drama", "#e63946", "#35070c"],
+  ["unread-message", "The Unread Message", "I saw the preview, and now we are both pretending.", "Awkward", "#8338ec", "#22063f"],
+  ["hallway-light", "Hallway Light", "It flickered twice, which is legally a warning.", "Mystery", "#52b788", "#0a2d20"],
+  ["desk-drawer", "The Desk Drawer", "I opened it for a pen and found three previous careers.", "Work", "#3a86ff", "#091c40"],
+  ["spare-key", "Spare Key Mystery", "The spare key is in a safe place nobody remembers.", "Mystery", "#118ab2", "#072e3b"],
+  ["bus-stop", "Bus Stop Prophecy", "The moment I sit down, the bus will appear.", "Everyday", "#4cc9f0", "#0a323f"],
+  ["cereal-box", "Cereal Box Evidence", "The empty box returned to the shelf under suspicious circumstances.", "Comedy", "#ffbe0b", "#3b2a01"],
+  ["charger-court", "Charger Court", "You borrowed it indefinitely, which is a fascinating legal theory.", "Drama", "#e71d36", "#36050c"],
+  ["mystery-smell", "The Mystery Smell", "Nobody panic, but the kitchen has developed a personality.", "Chaos", "#00f5d4", "#053b34"],
+  ["screen-share", "Screen Share Panic", "That is not the tab I intended to introduce.", "Work", "#7b2cbf", "#1c0834"],
+  ["lunch-meeting", "Lunch Meeting", "If there is no lunch, this is simply a meeting.", "Work", "#ff9f1c", "#402301"],
+  ["late-alarm", "The Late Alarm", "You had one job, and somehow I am apologizing.", "Everyday", "#f72585", "#3c0624"],
+  ["final-voicemail", "The Final Voicemail", "Please call me back before I rehearse this again.", "Drama", "#4895ef", "#0a1d3d"]
 ];
 
 function wordsFor(text, duration) {
@@ -67,19 +118,23 @@ const scenes = prompts.map(([slug, title, quote, category, colorA, colorB], inde
   const frequency = 120 + index * 9;
   const gradientType = index % 5;
 
-  execFileSync("ffmpeg", [
-    "-hide_banner", "-loglevel", "error", "-y",
-    "-f", "lavfi", "-i", `gradients=s=640x360:r=24:c0=${colorA}:c1=${colorB}:n=2:d=${duration}:speed=0.012:type=${gradientType}`,
-    "-f", "lavfi", "-i", `sine=frequency=${frequency}:sample_rate=48000:duration=${duration}`,
-    "-filter:a", "volume=0.025",
-    "-c:v", "libx264", "-preset", "veryfast", "-crf", "28", "-pix_fmt", "yuv420p",
-    "-c:a", "aac", "-b:a", "64k", "-movflags", "+faststart", "-shortest", videoPath
-  ]);
+  if (!existsSync(videoPath)) {
+    execFileSync("ffmpeg", [
+      "-hide_banner", "-loglevel", "error", "-y",
+      "-f", "lavfi", "-i", `gradients=s=640x360:r=24:c0=${colorA}:c1=${colorB}:n=2:d=${duration}:speed=0.012:type=${gradientType}`,
+      "-f", "lavfi", "-i", `sine=frequency=${frequency}:sample_rate=48000:duration=${duration}`,
+      "-filter:a", "volume=0.025",
+      "-c:v", "libx264", "-preset", "veryfast", "-crf", "28", "-pix_fmt", "yuv420p",
+      "-c:a", "aac", "-b:a", "64k", "-movflags", "+faststart", "-shortest", videoPath
+    ]);
+  }
 
-  execFileSync("ffmpeg", [
-    "-hide_banner", "-loglevel", "error", "-y", "-ss", String(duration / 2),
-    "-i", videoPath, "-frames:v", "1", "-q:v", "3", thumbnailPath
-  ]);
+  if (!existsSync(thumbnailPath)) {
+    execFileSync("ffmpeg", [
+      "-hide_banner", "-loglevel", "error", "-y", "-ss", String(duration / 2),
+      "-i", videoPath, "-frames:v", "1", "-q:v", "3", thumbnailPath
+    ]);
+  }
 
   return {
     id: `scene_${String(index + 1).padStart(3, "0")}`,
@@ -112,6 +167,6 @@ const manifest = {
 };
 
 writeFileSync(join(dataDir, "scenes.json"), `${JSON.stringify(manifest, null, 2)}\n`);
-writeFileSync(join(outputDir, "RIGHTS.md"), `# Volume One asset rights\n\nAll 24 moving-gradient clips, ambient tones, thumbnails, titles, quotes, and timings in this directory were generated specifically for StealMyScene on 2026-08-10. They contain no third-party footage, music, performances, logos, or character likenesses. Publishing is gated by the matching manifest records with \`rightsStatus: \"cleared\"\`.\n`);
+writeFileSync(join(outputDir, "RIGHTS.md"), `# Original catalog asset rights\n\nAll ${scenes.length} moving-gradient clips, ambient tones, thumbnails, titles, quotes, and timings in this directory were created specifically for StealMyScene. They contain no third-party footage, music, performances, logos, or character likenesses. Publishing is gated by the matching manifest records with \`rightsStatus: \"cleared\"\`.\n`);
 
 console.log(`Generated ${scenes.length} original, rights-cleared scenes in ${outputDir}`);

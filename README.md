@@ -30,7 +30,7 @@ No signup. No forced upload. Unlimited retakes.
 |---|---|
 | Public experience | Homepage, Explore, Trending, How It Works, scene pages, and dubbing studio |
 | Dubbing studio | Microphone capture, timed recording, preview, retake, local render, and download |
-| Scene catalog | 24 original scenes with versioned media, thumbnails, transcripts, and word timing |
+| Scene catalog | 75 original scenes with versioned media, thumbnails, transcripts, and word timing |
 | Admin workflow | Upload, trim, transcription review, metadata, rights review, and publishing |
 | Quality gates | Strict TypeScript, linting, automated tests, browser checks, accessibility scans, and production builds |
 
@@ -76,7 +76,7 @@ This runs linting, strict TypeScript checks, automated tests, and a complete pro
 
 The detailed Phase 1 browser, accessibility, privacy, media, admin, and security evidence is recorded in [`docs/PHASE_1_VERIFICATION.md`](./docs/PHASE_1_VERIFICATION.md).
 
-To rebuild the 24-scene original catalog and manifest:
+To rebuild the 75-scene original catalog and manifest:
 
 ```bash
 npm run generate:scenes

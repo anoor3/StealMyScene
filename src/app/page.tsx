@@ -92,7 +92,7 @@ export default function HomePage() {
       <section className="final-cta shell">
         <span className="eyebrow">The stage is waiting</span>
         <h2>Give us your best take.</h2>
-        <p>Twenty-four original scenes. Zero signup forms.</p>
+        <p>{scenes.length} original scenes. Zero signup forms.</p>
         <Link className="button" href="/explore">Find a scene <span aria-hidden="true">→</span></Link>
       </section>
     </>
