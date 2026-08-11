@@ -86,9 +86,33 @@ try {
   if (!probe.streams.some((stream) => stream.codec_type === "audio" && stream.codec_name === "aac")) throw new Error("WebKit dub does not contain AAC audio");
   await page.screenshot({ path: `${artifacts}/studio-finished-mobile.png`, fullPage: true });
 
+  await page.goto(`${origin}/create`, { waitUntil: "domcontentloaded" });
+  await page.locator('input[type="file"]').setInputFiles("public/scenes/v1/wrong-door.v1.mp4");
+  await page.getByLabel("Local source video preview").waitFor();
+  await page.locator("textarea").fill("WebKit takes the scene");
+  await page.screenshot({ path: `${artifacts}/local-create-setup-mobile.png`, fullPage: true });
+  const createAccessibility = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"]).analyze();
+  if (createAccessibility.violations.length > 0) throw new Error(`WebKit local-create accessibility violations: ${createAccessibility.violations.map(({ id }) => id).join(", ")}`);
+  await page.getByRole("button", { name: /Open dubbing studio/ }).click();
+  await page.getByRole("button", { name: "Add your voice" }).click();
+  await page.getByText("Take recorded. Preview it or create the final scene.").waitFor({ timeout: 20_000 });
+  await page.getByRole("button", { name: "Create my scene" }).click();
+  await page.getByText("Your scene is ready.").waitFor({ timeout: 120_000 });
+  if (!(await page.getByRole("button", { name: "Download MP4" }).isVisible())) throw new Error("WebKit download fallback is not visible");
+  const localDownloadPromise = page.waitForEvent("download");
+  await page.getByRole("button", { name: "Download MP4" }).click();
+  const localDownload = await localDownloadPromise;
+  const localPath = `${artifacts}/webkit-local-upload.mp4`;
+  await localDownload.saveAs(localPath);
+  const localProbe = JSON.parse(execFileSync("ffprobe", ["-v", "error", "-show_entries", "stream=codec_type,codec_name", "-of", "json", localPath], { encoding: "utf8" }));
+  if (!localProbe.streams.some((stream) => stream.codec_type === "video" && stream.codec_name === "h264")) throw new Error("WebKit local upload does not contain H.264 video");
+  if (!localProbe.streams.some((stream) => stream.codec_type === "audio" && stream.codec_name === "aac")) throw new Error("WebKit local upload does not contain AAC audio");
+  await page.screenshot({ path: `${artifacts}/local-create-finished-mobile.png`, fullPage: true });
+
   if (externalRequests.length > 0) throw new Error(`WebKit made unexpected external requests: ${externalRequests.join(", ")}`);
   if (errors.length > 0) throw new Error(`WebKit browser errors: ${errors.join(" | ")}`);
   console.log("WebKit E2E passed: mobile discovery → scene → recording → preview → local FFmpeg render → validated MP4 download");
+  console.log("WebKit E2E passed: local upload → trim setup → recording → fallback download");
   console.log("WebKit E2E passed: WCAG A/AA scan and zero external recording requests");
 } catch (error) {
   if (page) {
