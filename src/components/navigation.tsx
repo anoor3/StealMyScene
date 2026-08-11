@@ -13,12 +13,13 @@ const links = [
 export function Navigation() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const isHome = pathname === "/";
 
   return (
-    <header className="site-header">
+    <header className={isHome ? "site-header site-header--home" : "site-header"}>
       <Link className="brand" href="/" aria-label="StealMyScene home" onClick={() => setOpen(false)}>
         <span aria-hidden="true">S</span>
-        StealMyScene
+        <strong>Steal<em>My</em>Scene</strong>
       </Link>
       <button
         className="menu-button"
@@ -44,7 +45,7 @@ export function Navigation() {
         ))}
       </nav>
       <Link className="button button--compact header-cta" href="/explore">
-        Start dubbing <span aria-hidden="true">→</span>
+        {isHome ? "Try it now" : "Start dubbing"} <span aria-hidden="true">ϟ</span>
       </Link>
     </header>
   );

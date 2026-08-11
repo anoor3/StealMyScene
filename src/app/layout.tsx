@@ -27,7 +27,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
         </AnalyticsProvider>
         <footer className="site-footer">
           <Link className="brand brand--small" href="/" aria-label="StealMyScene home">
-            <span aria-hidden="true">S</span> StealMyScene
+            <span aria-hidden="true">S</span><strong>Steal<em>My</em>Scene</strong>
           </Link>
           <p>Original scenes. Your performance. Nothing uploaded unless you choose it.</p>
           <nav aria-label="Footer navigation">
