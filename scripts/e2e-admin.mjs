@@ -15,6 +15,7 @@ const artifacts = join(root, "test-results", "admin");
 mkdirSync(isolatedPublic, { recursive: true });
 mkdirSync(artifacts, { recursive: true });
 copyFileSync(join(root, "public", "data", "scenes.json"), isolatedManifest);
+const initialManifestVersion = JSON.parse(readFileSync(isolatedManifest, "utf8")).version;
 
 async function waitForServer() {
   for (let attempt = 0; attempt < 40; attempt += 1) {
@@ -93,7 +94,7 @@ try {
 
   const manifest = JSON.parse(readFileSync(isolatedManifest, "utf8"));
   const published = manifest.scenes.find((scene) => scene.slug === "ingestion-proof");
-  if (!published || published.rightsStatus !== "cleared" || manifest.version !== 2) throw new Error("Published manifest did not contain the rights-cleared scene");
+  if (!published || published.rightsStatus !== "cleared" || manifest.version !== initialManifestVersion + 1) throw new Error("Published manifest did not contain the rights-cleared scene or increment its version exactly once");
   const videoPath = join(isolatedPublic, "scenes", "v2", "ingestion-proof.v2.mp4");
   const probe = JSON.parse(execFileSync("ffprobe", ["-v", "error", "-show_entries", "stream=codec_type,codec_name", "-show_entries", "format=duration", "-of", "json", videoPath], { encoding: "utf8" }));
   if (!probe.streams.some((stream) => stream.codec_type === "video" && stream.codec_name === "h264")) throw new Error("Published clip is not valid H.264 video");
@@ -110,7 +111,7 @@ try {
   if (errors.length > 0) throw new Error(`Admin browser errors: ${errors.join(" | ")}`);
 
   console.log("Admin E2E passed: auth rate-safe login → validated upload → precise trim → aligned transcript review → rights-gated publish");
-  console.log("Admin E2E passed: isolated manifest v2 and H.264 output verified; pending rights rejected");
+  console.log(`Admin E2E passed: isolated manifest v${manifest.version} and H.264 output verified; pending rights rejected`);
 } catch (error) {
   if (page) await page.screenshot({ path: join(artifacts, "failure.png"), fullPage: true }).catch(() => undefined);
   console.error(serverLog);

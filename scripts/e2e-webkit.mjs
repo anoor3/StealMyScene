@@ -23,6 +23,11 @@ server.stderr.on("data", (chunk) => { serverLog += chunk.toString(); });
 let browser;
 let page;
 const errors = [];
+function isCancelledNextPrefetch(message) {
+  return message.includes("127.0.0.1:3102/")
+    && message.includes("?_rsc=")
+    && message.endsWith("due to access control checks.");
+}
 try {
   await waitForServer();
   browser = await webkit.launch({ headless: true });
@@ -50,12 +55,12 @@ try {
     const url = new URL(request.url());
     if (url.origin !== origin && !url.protocol.startsWith("blob")) externalRequests.push(request.url());
   });
-  page.on("pageerror", (error) => errors.push(error.message));
+  page.on("pageerror", (error) => {
+    if (!isCancelledNextPrefetch(error.message)) errors.push(error.message);
+  });
   page.on("console", (message) => {
     const messageText = message.text();
-    const isCancelledNextPrefetch = messageText.includes("?_rsc=")
-      && messageText.endsWith("due to access control checks.");
-    if (message.type() === "error" && !isCancelledNextPrefetch) errors.push(messageText);
+    if (message.type() === "error" && !isCancelledNextPrefetch(messageText)) errors.push(messageText);
   });
   page.on("response", (response) => {
     if (response.status() >= 400) errors.push(`HTTP ${response.status()} ${response.url()}`);
