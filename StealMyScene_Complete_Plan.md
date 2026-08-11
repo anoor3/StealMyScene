@@ -7,7 +7,7 @@ This document supersedes the scattered version — it's organized by **build pha
 
 > **Completeness contract:** This is the canonical product and engineering scope. No phase, requirement, safeguard, fallback, exit signal, or deliberately deferred item in this plan may be silently skipped. Every item must be tracked in [`PROJECT_PROGRESS.md`](./PROJECT_PROGRESS.md), and implementation must follow [`ENGINEERING_EXECUTION_RULES.md`](./ENGINEERING_EXECUTION_RULES.md). If reality requires a change, the change and its reason must be recorded in all affected documents before work proceeds; an item is never treated as complete merely because it was omitted from a build.
 
-**Current status (2026-08-11):** Phase 1 implementation and acceptance verification are complete. P1-17 remains explicitly awaiting real-user traffic because the 20–25% second-scene hypothesis cannot be truthfully evaluated from synthetic tests. The product owner has explicitly prioritized starting Phase 2 before deployment so the public local-upload loop can be completed and tested; this does not waive or complete P1-17, and deployment-dependent Phase 2 exit evidence remains gated.
+**Current status (2026-08-11):** Phase 1 implementation and acceptance verification are complete. P1-17 remains explicitly awaiting real-user traffic because the 20–25% second-scene hypothesis cannot be truthfully evaluated from synthetic tests. Phase 2 product and engineering implementation through P2-08 is complete and pushed. The k6 workload and a bounded local origin smoke report exist, but P2-09 and P2-10 remain explicitly awaiting a deployed CDN run toward 100,000 simulated users. Localhost results cannot truthfully establish edge cache ratio, origin fan-out, or the Phase 2 exit signal.
 
 ---
 
@@ -127,12 +127,15 @@ Five phases, Phase 1 to what "end product" looks like. Each one has a single goa
 - Library grows to roughly 75–150 scenes; the trending formula goes live: `recent dubs + shares + views + completion rate + velocity`, weighted toward recent activity so old clips don't dominate forever
 - A real load-testing pass (k6 or Artillery) simulating spiky concurrent traffic against the CDN + static path specifically — this is where the "100,000 at once" requirement gets tested against reality instead of assumed
 - A lightweight, anonymous, batched analytics pipeline — client fires fire-and-forget events, never blocking the UI, to measure the funnel from [Section 15](#15-the-metric-that-matters)
+- An explicit server FFmpeg fallback for client render failures. The normal path remains local; fallback uses scoped temporary uploads only after the user chooses it, validates the inputs and output server-side, and deletes successful or expired job data.
 
 **The moderation note:** local-only export is low-stakes — a user privately saving or sharing a file they made is no different from screen-recording anything else. The moment "Get a link" exists, StealMyScene is *hosting and serving* user-generated audio from its own domain, which is a materially different exposure. The mitigation is cheap because the infrastructure already exists by this phase: run the same transcription pipeline used for admin content over the user's recording before the link goes live, hold it in a brief pending state, auto-reject on an obvious keyword/hate-speech match, and auto-expire every link (72 hours is a reasonable default) so nothing lingers indefinitely.
 
 **Deliberately deferred:** accounts, an on-platform public gallery, stem separation, and public catalog submission. The local-upload route creates a private output only; creator publishing remains Phase 5 scope.
 
 **Exit signal:** p95 time-to-first-frame on scene pages stays flat as simulated concurrent load rises toward 100k, and CDN cache hit ratio holds above roughly 95%. If either degrades, that's a caching or fan-out problem to fix before adding features.
+
+**Current exit status:** awaiting deployment. The versioned workload, thresholds, cache diagnostics, and local origin smoke evidence are implemented. The 100,000-user CDN run and exit decision cannot be completed against localhost and are not waived.
 
 ---
 
