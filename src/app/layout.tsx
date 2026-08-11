@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { AnalyticsProvider } from "@/components/analytics-provider";
+import { BrandLogo } from "@/components/brand-logo";
 import { Navigation } from "@/components/navigation";
 import "./globals.css";
 
@@ -27,7 +28,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
         </AnalyticsProvider>
         <footer className="site-footer">
           <Link className="brand brand--small" href="/" aria-label="StealMyScene home">
-            <span aria-hidden="true">S</span><strong>Steal<em>My</em>Scene</strong>
+            <BrandLogo size="small" />
           </Link>
           <p>Original scenes. Your performance. Nothing uploaded unless you choose it.</p>
           <nav aria-label="Footer navigation">

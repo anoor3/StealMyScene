@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { BrandLogo } from "@/components/brand-logo";
 import { SceneShelf } from "@/components/scene-shelf";
 import { getPublishedScenes } from "@/lib/scenes/catalog";
 
@@ -36,7 +37,7 @@ export default function HomePage() {
           <div className="theater-product" aria-hidden="true">
             <div className="theater-monitor">
               <div className="theater-monitor__bar">
-                <span className="mock-brand"><b>S</b> Steal<em>My</em>Scene</span>
+                <BrandLogo size="mock" />
                 <span>Pick a scene</span>
               </div>
               <div className="theater-monitor__grid">
@@ -59,7 +60,7 @@ export default function HomePage() {
 
             <div className="theater-phone">
               <span className="theater-phone__notch" />
-              <div className="theater-phone__brand">Steal<em>My</em>Scene</div>
+              <BrandLogo size="phone" />
               <small>Pick a scene</small>
               <div className="theater-phone__scene">
                 <Image src={phoneScene.thumbnailUrl} alt="" fill sizes="190px" />

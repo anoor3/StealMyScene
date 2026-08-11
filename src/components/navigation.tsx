@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { BrandLogo } from "@/components/brand-logo";
 
 const links = [
   ["Explore", "/explore"],
@@ -18,8 +19,7 @@ export function Navigation() {
   return (
     <header className={isHome ? "site-header site-header--home" : "site-header"}>
       <Link className="brand" href="/" aria-label="StealMyScene home" onClick={() => setOpen(false)}>
-        <span aria-hidden="true">S</span>
-        <strong>Steal<em>My</em>Scene</strong>
+        <BrandLogo priority />
       </Link>
       <button
         className="menu-button"
