@@ -1,5 +1,9 @@
 # StealMyScene
 
+![StealMyScene theatrical dubbing product preview](./public/brand/stealmyscene-product-preview.png)
+
+*Product vision artwork — pick a scene, perform the line, and make the moment yours.*
+
 StealMyScene is a browser-first dubbing toy: choose a short original scene, follow its timed line, record a performance, preview it, and render a downloadable MP4 locally—without signup or an upload in the Phase 1 guest flow.
 
 ## Local development
