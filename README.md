@@ -82,7 +82,7 @@ npm run verify
 
 This runs linting, strict TypeScript checks, automated tests, and a complete production build.
 
-The detailed Phase 1 browser, accessibility, privacy, media, admin, and security evidence is recorded in [`docs/PHASE_1_VERIFICATION.md`](./docs/PHASE_1_VERIFICATION.md).
+The detailed acceptance records are [`docs/PHASE_1_VERIFICATION.md`](./docs/PHASE_1_VERIFICATION.md) and [`docs/PHASE_2_VERIFICATION.md`](./docs/PHASE_2_VERIFICATION.md).
 
 Phase 2 analytics, API scaling, and load procedures are recorded in [`docs/ANALYTICS.md`](./docs/ANALYTICS.md), [`docs/API_SCALING.md`](./docs/API_SCALING.md), and [`docs/LOAD_TESTING.md`](./docs/LOAD_TESTING.md).
 
