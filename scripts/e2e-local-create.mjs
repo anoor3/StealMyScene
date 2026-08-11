@@ -1,6 +1,6 @@
 import { strict as assert } from "node:assert";
 import { execFileSync, spawn } from "node:child_process";
-import { mkdirSync, readFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync } from "node:fs";
 import AxeBuilder from "@axe-core/playwright";
 import { chromium } from "playwright-core";
 
@@ -31,7 +31,8 @@ const server = spawn("npm", ["run", "start", "--", "--hostname", "127.0.0.1", "-
     ...process.env,
     TRANSCRIPTION_DRIVER: "fixture",
     ALLOW_FIXTURE_TRANSCRIPTION: "true",
-    SHARE_CLEANUP_SECRET: "phase-2-e2e-cleanup-secret"
+    SHARE_CLEANUP_SECRET: "phase-2-e2e-cleanup-secret",
+    RATE_LIMIT_DRIVER: "memory"
   }
 });
 let serverLog = "";
@@ -131,6 +132,28 @@ try {
   assert.ok(Number(media.format.duration) >= 1 && Number(media.format.duration) <= 15.1);
 
   const outputBytes = readFileSync(downloadPath);
+  const fallbackSource = readFileSync("public/scenes/v1/wrong-door.v1.mp4");
+  const fallbackInit = await context.request.post(`${origin}/api/render-fallback`, {
+    headers: { origin },
+    data: { sourceBytes: fallbackSource.length, sourceType: "video/mp4", voiceBytes: outputBytes.length, voiceType: "audio/mp4", start: 0.5, duration: 2 }
+  });
+  assert.equal(fallbackInit.status(), 201);
+  const fallback = await fallbackInit.json();
+  for (const [target, bytes] of [[fallback.uploads.source, fallbackSource], [fallback.uploads.voice, outputBytes]]) {
+    const uploaded = await context.request.put(new URL(target.url, origin).href, { headers: { origin, ...target.headers }, data: bytes });
+    assert.equal(uploaded.status(), 204);
+  }
+  const fallbackFinal = await context.request.post(`${origin}/api/render-fallback/${fallback.id}/finalize`, { headers: { origin }, data: { token: fallback.token } });
+  assert.equal(fallbackFinal.status(), 200);
+  const fallbackPath = `${artifacts}/fallback-output.mp4`;
+  const { writeFileSync } = await import("node:fs");
+  writeFileSync(fallbackPath, await fallbackFinal.body());
+  const fallbackProbe = JSON.parse(execFileSync("ffprobe", ["-v", "error", "-show_streams", "-show_format", "-of", "json", fallbackPath], { encoding: "utf8" }));
+  assert.equal(fallbackProbe.streams.find(({ codec_type }) => codec_type === "video")?.codec_name, "h264");
+  assert.equal(fallbackProbe.streams.find(({ codec_type }) => codec_type === "audio")?.codec_name, "aac");
+  assert.ok(Math.abs(Number(fallbackProbe.format.duration) - 2) < 0.35);
+  assert.equal(existsSync(`var/render-fallback/${fallback.id}`), false);
+
   const rejectedInit = await context.request.post(`${origin}/api/share-links`, {
     headers: { origin },
     data: { fileName: "rejected.mp4", contentType: "video/mp4", size: outputBytes.length, title: "Rejected test" }
@@ -163,7 +186,7 @@ try {
   await page.screenshot({ path: `${artifacts}/setup-mobile.png`, fullPage: true });
 
   assert.deepEqual(browserErrors, []);
-  console.log("Local create E2E passed: validation → trim setup → record → local render → valid MP4 download");
+  console.log("Local create E2E passed: validation → local render/share → forced server fallback → valid MP4 output and cleanup");
 } catch (error) {
   console.error(serverLog);
   throw error;

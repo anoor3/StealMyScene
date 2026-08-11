@@ -16,7 +16,7 @@ export async function checkRateLimit(key: string, limit: number, windowMs: numbe
   const serviceUrl = process.env.RATE_LIMIT_SERVICE_URL;
   const token = process.env.RATE_LIMIT_SERVICE_TOKEN;
   if (!serviceUrl) {
-    if (process.env.NODE_ENV === "production") return false;
+    if (process.env.NODE_ENV === "production" && process.env.RATE_LIMIT_DRIVER !== "memory") return false;
     return localCheck(key, limit, windowMs, now);
   }
   if (!token) return false;

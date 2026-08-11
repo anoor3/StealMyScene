@@ -30,7 +30,8 @@ async function waitForServer(attempts = 40) {
 }
 
 const server = spawn("npm", ["run", "start", "--", "--hostname", "127.0.0.1", "--port", "3100"], {
-  stdio: ["ignore", "pipe", "pipe"]
+  stdio: ["ignore", "pipe", "pipe"],
+  env: { ...process.env, RATE_LIMIT_DRIVER: "memory" }
 });
 let serverLog = "";
 server.stdout.on("data", (chunk) => { serverLog += chunk.toString(); });

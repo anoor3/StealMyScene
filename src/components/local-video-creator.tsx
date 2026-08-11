@@ -161,7 +161,7 @@ export function LocalVideoCreator() {
       <header className="page-heading local-create__heading">
         <span className="eyebrow">Your clip. Your performance.</span>
         <h1>Dub your own video.</h1>
-        <p>Drop a video, choose up to 15 seconds, perform the line, and download the result. Quick mode stays entirely on this device.</p>
+        <p>Drop a video, choose up to 15 seconds, perform the line, and download the result. Quick mode stays on this device unless you explicitly choose fallback after a local render failure.</p>
       </header>
 
       <section className="local-create__panel" aria-labelledby="local-source-title">
@@ -201,7 +201,7 @@ export function LocalVideoCreator() {
 
       <aside className="local-create__privacy">
         <strong><span aria-hidden="true">⌁</span> Private quick mode</strong>
-        <p>The selected video and microphone recording stay in browser memory. They are not added to the public catalog or sent through the admin uploader.</p>
+        <p>The selected video and microphone recording stay in browser memory during quick mode. They are never added to the public catalog. If you explicitly choose server fallback, temporary encrypted uploads are deleted after rendering.</p>
       </aside>
     </div>
   );

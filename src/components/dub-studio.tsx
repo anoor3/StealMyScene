@@ -6,6 +6,7 @@ import { analytics } from "@/lib/analytics/client";
 import type { Scene } from "@/lib/scenes/schema";
 import { activeWordIndex, microphoneErrorMessage, selectRecordingMimeType } from "@/lib/studio/media";
 import { renderDub } from "@/lib/studio/render";
+import { renderDubOnServer } from "@/lib/studio/render-fallback";
 import { canShareDubFile, createDubFile, shareDubFile } from "@/lib/studio/share";
 import { initialStudioState, studioReducer } from "@/lib/studio/state";
 import { Waveform } from "./waveform";
@@ -29,6 +30,7 @@ export function DubStudio({ scene, sourceClip, sourcePoster, onExit }: DubStudio
   const [resultUrl, setResultUrl] = useState<string>();
   const [result, setResult] = useState<Blob>();
   const [shareMessage, setShareMessage] = useState<string>();
+  const [localRenderFailed, setLocalRenderFailed] = useState(false);
   const [analyser, setAnalyser] = useState<AnalyserNode>();
   const [activeWord, setActiveWord] = useState(-1);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -78,6 +80,7 @@ export function DubStudio({ scene, sourceClip, sourcePoster, onExit }: DubStudio
     });
     setResult(undefined);
     setShareMessage(undefined);
+    setLocalRenderFailed(false);
     setActiveWord(-1);
   }, []);
 
@@ -216,7 +219,23 @@ export function DubStudio({ scene, sourceClip, sourcePoster, onExit }: DubStudio
       analytics.track("render_finish", { sceneId: scene.id, bytes: output.size });
     } catch (error) {
       const detail = error instanceof Error ? error.message : "Unknown render failure";
-      dispatch({ type: "FAIL", message: `${detail} Your recording is still available, so you can retry or retake.` });
+      setLocalRenderFailed(true);
+      dispatch({ type: "FAIL", message: `${detail} Your recording is still available. Retry locally, or explicitly use the secure server fallback.` });
+    }
+  }
+
+  async function processServerFallback() {
+    if (!recording) return;
+    dispatch({ type: "PROCESS" });
+    analytics.track("render_fallback", { sceneId: scene.id });
+    try {
+      const output = await renderDubOnServer({ videoUrl: scene.videoUrl, recording, sourceClip: sourceClip ?? { start: 0, duration: scene.duration }, onProgress: (value) => dispatch({ type: "PROGRESS", value }) });
+      setResult(output);
+      setResultUrl(URL.createObjectURL(output));
+      dispatch({ type: "FINISH" });
+      analytics.track("render_finish", { sceneId: scene.id, bytes: output.size, method: "server_fallback" });
+    } catch (error) {
+      dispatch({ type: "FAIL", message: `${error instanceof Error ? error.message : "Server fallback failed."} Your recording is still available.` });
     }
   }
 
@@ -270,7 +289,7 @@ export function DubStudio({ scene, sourceClip, sourcePoster, onExit }: DubStudio
           ? <button className="back-link back-link--button" type="button" onClick={onExit}>← Change video</button>
           : <Link className="back-link" href={`/scene/${scene.slug}`}>← Back to scene</Link>}
         <div><span className="eyebrow">Dub studio</span><h1>{scene.title}</h1></div>
-        <span className="local-badge">⌁ Local only</span>
+        <span className="local-badge">⌁ Local by default</span>
       </header>
 
       <div className="studio__layout">
@@ -298,7 +317,7 @@ export function DubStudio({ scene, sourceClip, sourcePoster, onExit }: DubStudio
             <div className="processing-overlay" role="status">
               <span className="spinner" aria-hidden="true" />
               <strong>Creating your scene…</strong>
-              <small>Keep this tab open. The render is happening on your device.</small>
+              <small>Keep this tab open while your scene is created.</small>
             </div>
           )}
 
@@ -361,6 +380,8 @@ export function DubStudio({ scene, sourceClip, sourcePoster, onExit }: DubStudio
           {state.status === "error" && (
             <div className="control-stack">
               {recording && <button className="button button--full" type="button" onClick={() => void processRecording()}>Retry render</button>}
+              {recording && localRenderFailed && <button className="button button--secondary button--full" type="button" onClick={() => void processServerFallback()}>Use secure server fallback</button>}
+              {recording && localRenderFailed && <p className="share-note">Fallback temporarily uploads the source and voice, renders the MP4, then deletes every temporary file.</p>}
               <button className="button button--secondary button--full" type="button" onClick={retake}>Start over</button>
             </div>
           )}

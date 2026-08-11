@@ -36,6 +36,7 @@ const server = spawn("npm", ["run", "start", "--", "--hostname", "127.0.0.1", "-
     TRANSCRIPTION_DRIVER: "fixture",
     ALLOW_FIXTURE_TRANSCRIPTION: "true",
     ALLOW_NO_REBUILD_HOOK: "true",
+    RATE_LIMIT_DRIVER: "memory",
     VAR_ROOT: isolatedVar,
     CATALOG_PATH: isolatedManifest,
     PUBLIC_ASSET_ROOT: isolatedPublic

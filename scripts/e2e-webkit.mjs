@@ -15,7 +15,7 @@ async function waitForServer() {
   throw new Error("WebKit E2E server did not become ready");
 }
 
-const server = spawn("npm", ["run", "start", "--", "--hostname", "127.0.0.1", "--port", "3102"], { stdio: ["ignore", "pipe", "pipe"] });
+const server = spawn("npm", ["run", "start", "--", "--hostname", "127.0.0.1", "--port", "3102"], { stdio: ["ignore", "pipe", "pipe"], env: { ...process.env, RATE_LIMIT_DRIVER: "memory" } });
 let serverLog = "";
 server.stdout.on("data", (chunk) => { serverLog += chunk.toString(); });
 server.stderr.on("data", (chunk) => { serverLog += chunk.toString(); });
