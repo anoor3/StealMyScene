@@ -23,6 +23,7 @@ export const analyticsEventSchema = z.object({
 });
 
 export const analyticsBatchSchema = z.object({
+  batchId: z.string().uuid(),
   events: z.array(analyticsEventSchema).min(1).max(30)
 });
 

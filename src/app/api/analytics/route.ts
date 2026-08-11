@@ -1,10 +1,11 @@
 import { NextResponse } from "next/server";
 import { analyticsBatchSchema } from "@/lib/analytics/events";
 import { checkRateLimit, requestFingerprint } from "@/lib/security/rate-limit";
+import { writeAnalyticsBatch } from "@/lib/analytics/storage";
 
 export async function POST(request: Request) {
   const fingerprint = requestFingerprint(request);
-  if (!checkRateLimit(`analytics:${fingerprint}`, 20, 60_000)) {
+  if (!(await checkRateLimit(`analytics:${fingerprint}`, 20, 60_000))) {
     return NextResponse.json({ error: "Too many requests" }, { status: 429 });
   }
 
@@ -18,8 +19,11 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid event batch" }, { status: 400 });
   }
 
-  // Phase 1 intentionally avoids a live analytics database. Production log drains can
-  // aggregate this structured, anonymous batch without blocking the response.
-  console.info(JSON.stringify({ type: "analytics_batch", count: parsed.data.events.length, events: parsed.data.events }));
-  return new NextResponse(null, { status: 202 });
+  try {
+    await writeAnalyticsBatch(parsed.data);
+    return new NextResponse(null, { status: 202 });
+  } catch (error) {
+    if (error instanceof Error && (error.name === "PreconditionFailed" || error.message.includes("exist"))) return new NextResponse(null, { status: 202 });
+    return NextResponse.json({ error: "Analytics storage is unavailable" }, { status: 503 });
+  }
 }
