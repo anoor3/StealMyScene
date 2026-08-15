@@ -91,7 +91,7 @@ try {
   await uploadError.waitFor();
   assert.match(await uploadError.innerText(), /does not match/);
 
-  await page.locator('input[type="file"]').setInputFiles("public/scenes/v1/wrong-door.v1.mp4");
+  await page.locator('input[type="file"]').setInputFiles("public/scenes/v3/unexpected-sermon.v3.mp4");
   await page.getByLabel("Local source video preview").waitFor();
   await page.locator("textarea").fill("This is my scene now");
   await page.getByRole("button", { name: /Open dubbing studio/ }).click();
@@ -132,7 +132,7 @@ try {
   assert.ok(Number(media.format.duration) >= 1 && Number(media.format.duration) <= 15.1);
 
   const outputBytes = readFileSync(downloadPath);
-  const fallbackSource = readFileSync("public/scenes/v1/wrong-door.v1.mp4");
+  const fallbackSource = readFileSync("public/scenes/v3/unexpected-sermon.v3.mp4");
   const fallbackInit = await context.request.post(`${origin}/api/render-fallback`, {
     headers: { origin },
     data: { sourceBytes: fallbackSource.length, sourceType: "video/mp4", voiceBytes: outputBytes.length, voiceType: "audio/mp4", start: 0.5, duration: 2 }

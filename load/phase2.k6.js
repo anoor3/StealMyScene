@@ -32,12 +32,12 @@ export const options = {
   }
 };
 
-const pages = ["/", "/explore", "/trending", "/scene/wrong-door", "/scene/last-cookie", "/scene/final-voicemail"];
+const pages = ["/", "/explore", "/trending", "/scene/unexpected-sermon", "/scene/moon-landing", "/scene/cartoon-moon"];
 const assets = [
   "/data/scenes.json",
-  "/scenes/v1/wrong-door.v1.jpg", "/scenes/v1/wrong-door.v1.mp4",
-  "/scenes/v1/last-cookie.v1.jpg", "/scenes/v1/last-cookie.v1.mp4",
-  "/scenes/v1/final-voicemail.v1.jpg", "/scenes/v1/final-voicemail.v1.mp4"
+  "/scenes/v3/unexpected-sermon.v3.jpg", "/scenes/v3/unexpected-sermon.v3.mp4",
+  "/scenes/v3/moon-landing.v3.jpg", "/scenes/v3/moon-landing.v3.mp4",
+  "/scenes/v3/cartoon-moon.v3.jpg", "/scenes/v3/cartoon-moon.v3.mp4"
 ];
 
 function cacheState(response) {

@@ -6,7 +6,7 @@ if (!baseUrl) throw new Error("BASE_URL must point at the deployed HTTPS site");
 
 const firstFrame = new Trend("video_first_frame_ms", true);
 const firstFrameSuccess = new Rate("video_first_frame_success");
-const scenes = ["wrong-door", "last-cookie", "tiny-emergency", "final-voicemail"];
+const scenes = ["unexpected-sermon", "moon-landing", "cartoon-moon", "park-entrance"];
 
 export const options = {
   scenarios: {

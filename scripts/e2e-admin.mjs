@@ -68,7 +68,7 @@ try {
   await page.getByRole("button", { name: "Enter scene desk" }).click();
   await page.getByRole("heading", { name: "Scene ingestion desk" }).waitFor();
 
-  await page.locator('input[type="file"]').setInputFiles(join(root, "public", "scenes", "v1", "wrong-door.v1.mp4"));
+  await page.locator('input[type="file"]').setInputFiles(join(root, "public", "scenes", "v3", "unexpected-sermon.v3.mp4"));
   await page.getByLabel(/Expected line/).fill("This pipeline made a real scene.");
   await page.getByRole("button", { name: "Process selected clip" }).click();
   await page.getByRole("heading", { name: "Human transcript review" }).waitFor({ timeout: 60_000 });
@@ -77,12 +77,12 @@ try {
 
   await page.getByRole("textbox", { name: "Title", exact: true }).fill("Ingestion Proof");
   await page.getByLabel("URL slug").fill("ingestion-proof");
-  await page.getByRole("textbox", { name: "Source title", exact: true }).fill("StealMyScene E2E Original");
+  await page.getByRole("textbox", { name: "Source title", exact: true }).fill("StealMyScene E2E Fixture");
   await page.getByLabel("Source type").selectOption("original");
   await page.getByLabel("Category").fill("Comedy");
   await page.getByLabel("Rights status").selectOption("cleared");
   await page.getByLabel("Rights owner").fill("StealMyScene");
-  await page.getByLabel("Rights basis / evidence").fill("Original synthetic source generated and owned by StealMyScene.");
+  await page.getByLabel("Rights basis / evidence").fill("Automated test fixture used only in the isolated admin test catalog.");
   const invalidFields = await page.locator("form :invalid").evaluateAll((elements) => elements.map((element) => ({ name: element.getAttribute("name"), value: element.value, message: element.validationMessage })));
   if (invalidFields.length > 0) throw new Error(`Admin form has invalid fields: ${JSON.stringify(invalidFields)}`);
   const publishResponsePromise = page.waitForResponse((response) => response.url().endsWith("/api/admin/scenes/publish"));
