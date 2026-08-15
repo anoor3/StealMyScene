@@ -4,13 +4,13 @@
 
 ![StealMyScene theatrical dubbing product preview](./public/brand/stealmyscene-product-preview.png)
 
-StealMyScene is a browser-first dubbing experience built for fast, funny performances. Choose a short original scene, follow the timed line, record your voice, preview your take, and download the finished MP4.
+StealMyScene is a browser-first dubbing experience built for fast, funny performances. Choose a short scene from real public-domain films, follow the timed line, record your voice, preview your take, and download the finished MP4.
 
 No signup. No forced upload. Unlimited retakes.
 
 ## The experience
 
-1. **Pick a scene** from the original, rights-cleared catalog.
+1. **Pick a scene** from the real, public-domain film catalog.
 2. **Perform the line** while the transcript follows the scene timing.
 3. **Preview your take** with instant playback and unlimited retries.
 4. **Render locally** in the browser and download a finished video.
@@ -33,7 +33,7 @@ You can also open `/create`, drop your own MP4, MOV, or WebM file, select up to 
 |---|---|
 | Public experience | Homepage, Explore, Trending, How It Works, scene pages, and dubbing studio |
 | Dubbing studio | Microphone capture, timed recording, preview, retake, local render, download, native sharing, and secure fallback |
-| Scene catalog | 75 original scenes with versioned media, thumbnails, transcripts, and word timing |
+| Scene catalog | 75 real film and animation clips with versioned media, thumbnails, transcripts, word timing, and source evidence |
 | Your own video | Drag and drop, validation, trim selection, private dubbing, and local export |
 | Temporary links | Explicit upload, transcription moderation, ranged playback, and automatic expiry |
 | Trending | Anonymous activity batches, recency-weighted ranking, and cached delivery |
@@ -86,11 +86,13 @@ The detailed acceptance records are [`docs/PHASE_1_VERIFICATION.md`](./docs/PHAS
 
 Phase 2 analytics, API scaling, and load procedures are recorded in [`docs/ANALYTICS.md`](./docs/ANALYTICS.md), [`docs/API_SCALING.md`](./docs/API_SCALING.md), and [`docs/LOAD_TESTING.md`](./docs/LOAD_TESTING.md).
 
-To rebuild the 75-scene original catalog and manifest:
+To rebuild the 75-scene real-footage catalog and manifest:
 
 ```bash
 npm run generate:scenes
 ```
+
+The rebuild downloads four verified public-domain masters from Wikimedia Commons, checks their exact sizes and SHA-256 digests, then creates short H.264 clips with silent AAC tracks. Source pages and checksums are recorded in [`public/scenes/v3/SOURCES.md`](./public/scenes/v3/SOURCES.md).
 
 ## Roadmap and project records
 

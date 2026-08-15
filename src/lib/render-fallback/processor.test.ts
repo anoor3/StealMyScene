@@ -23,7 +23,7 @@ describe("server render fallback", () => {
   });
 
   it("renders synchronized H.264/AAC output and removes all temporary inputs", async () => {
-    const sourcePath = resolve("public/scenes/v1/wrong-door.v1.mp4");
+    const sourcePath = resolve("public/scenes/v3/unexpected-sermon.v3.mp4");
     const voicePath = join(root, "voice.webm");
     execFileSync("ffmpeg", ["-hide_banner", "-loglevel", "error", "-y", "-f", "lavfi", "-i", "sine=frequency=440:duration=2", "-c:a", "libopus", voicePath]);
     const source = readFileSync(sourcePath);

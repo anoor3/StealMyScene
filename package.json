@@ -21,11 +21,12 @@
     "test:e2e:create": "node scripts/e2e-local-create.mjs",
     "test:e2e:webkit": "node scripts/e2e-webkit.mjs",
     "test:load:smoke": "node scripts/load-smoke.mjs",
-    "generate:scenes": "node scripts/generate-original-scenes.mjs",
+    "verify:catalog": "node scripts/verify-public-domain-catalog.mjs",
+    "generate:scenes": "node scripts/fetch-public-domain-sources.mjs && node scripts/generate-public-domain-scenes.mjs",
     "sync:catalog": "node scripts/sync-catalog.mjs",
     "prepare:ffmpeg": "node scripts/prepare-ffmpeg.mjs",
     "postinstall": "npm run prepare:ffmpeg",
-    "verify": "npm run lint && npm run typecheck && npm run test && npm run build"
+    "verify": "npm run lint && npm run typecheck && npm run test && npm run verify:catalog && npm run build"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "latest",

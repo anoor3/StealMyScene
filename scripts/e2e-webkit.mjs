@@ -70,7 +70,7 @@ try {
   await page.getByRole("heading", { name: /Say the line/ }).waitFor();
   await page.goto(`${origin}/explore`, { waitUntil: "domcontentloaded" });
   await page.getByRole("heading", { name: "Find your line." }).waitFor();
-  await page.goto(`${origin}/scene/wrong-door`, { waitUntil: "domcontentloaded" });
+  await page.goto(`${origin}/scene/unexpected-sermon`, { waitUntil: "domcontentloaded" });
   await page.getByRole("link", { name: /Add your voice/ }).click();
   await page.getByRole("button", { name: "Add your voice" }).waitFor();
   await page.screenshot({ path: `${artifacts}/studio-ready-mobile.png`, fullPage: true });
@@ -92,7 +92,7 @@ try {
   await page.screenshot({ path: `${artifacts}/studio-finished-mobile.png`, fullPage: true });
 
   await page.goto(`${origin}/create`, { waitUntil: "domcontentloaded" });
-  await page.locator('input[type="file"]').setInputFiles("public/scenes/v1/wrong-door.v1.mp4");
+  await page.locator('input[type="file"]').setInputFiles("public/scenes/v3/unexpected-sermon.v3.mp4");
   await page.getByLabel("Local source video preview").waitFor();
   await page.locator("textarea").fill("WebKit takes the scene");
   await page.screenshot({ path: `${artifacts}/local-create-setup-mobile.png`, fullPage: true });

@@ -26,7 +26,7 @@ describe("scheduled trending aggregation", () => {
     await writeAnalyticsBatch({
       batchId: "eb7157af-3ff9-44a7-b188-346c09017515",
       events: [
-        { name: "scene_open", timestamp: now - 100, sessionId: "b96f2590-4d85-49fd-a7cf-476a1a6af473", properties: { sceneSlug: "last-cookie" } },
+        { name: "scene_open", timestamp: now - 100, sessionId: "b96f2590-4d85-49fd-a7cf-476a1a6af473", properties: { sceneSlug: "front-row-regret" } },
         { name: "record_start", timestamp: now - 90, sessionId: "b96f2590-4d85-49fd-a7cf-476a1a6af473", properties: { sceneId: "scene_002" } },
         { name: "render_finish", timestamp: now - 80, sessionId: "b96f2590-4d85-49fd-a7cf-476a1a6af473", properties: { sceneId: "scene_002" } },
         { name: "share", timestamp: now - 70, sessionId: "b96f2590-4d85-49fd-a7cf-476a1a6af473", properties: { sceneId: "scene_002" } }

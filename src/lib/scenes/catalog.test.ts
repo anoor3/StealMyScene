@@ -9,7 +9,10 @@ describe("scene catalog", () => {
     expect(scenes.length).toBeLessThanOrEqual(150);
     for (const scene of scenes) {
       expect(() => sceneSchema.parse(scene)).not.toThrow();
-      expect(["cleared", "licensed"]).toContain(scene.rightsStatus);
+      expect(scene.sourceType).toBe("movie");
+      expect(scene.rightsStatus).toBe("cleared");
+      expect(scene.rightsOwner).toBe("Public domain");
+      expect(scene.rightsBasis).toContain("commons.wikimedia.org/wiki/File:");
     }
   });
 
@@ -24,7 +27,7 @@ describe("scene catalog", () => {
   });
 
   it("supports lookup, categories, and related scenes", () => {
-    const scene = getSceneBySlug("wrong-door");
+    const scene = getSceneBySlug("unexpected-sermon");
     expect(scene?.id).toBe("scene_001");
     expect(getCategories()).toContain("Comedy");
     expect(getRelatedScenes(scene!, 4)).toHaveLength(4);

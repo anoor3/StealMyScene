@@ -5,7 +5,7 @@ import { mkdirSync, writeFileSync } from "node:fs";
 const origin = "http://127.0.0.1:3104";
 const concurrency = Number(process.env.LOAD_CONCURRENCY || 50);
 const requestCount = Number(process.env.LOAD_REQUESTS || 2_000);
-const paths = ["/", "/explore", "/trending", "/scene/wrong-door", "/scene/final-voicemail", "/data/scenes.json", "/scenes/v1/wrong-door.v1.jpg", "/scenes/v1/wrong-door.v1.mp4"];
+const paths = ["/", "/explore", "/trending", "/scene/unexpected-sermon", "/scene/moon-landing", "/data/scenes.json", "/scenes/v3/unexpected-sermon.v3.jpg", "/scenes/v3/unexpected-sermon.v3.mp4"];
 const server = spawn("npm", ["run", "start", "--", "--hostname", "127.0.0.1", "--port", "3104"], {
   stdio: ["ignore", "pipe", "pipe"], env: { ...process.env, RATE_LIMIT_DRIVER: "memory" }
 });
